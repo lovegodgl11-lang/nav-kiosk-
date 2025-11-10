@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" class=""><head><script>window.livecodes = window.livecodes || {};</script><title>Kiosk with call</title><meta name="title" content="Kiosk with call"><meta name="description" content="Nav kiosk "><meta charset="UTF-8">
+<html lang="en" class=""><head><script>window.livecodes = window.livecodes || {};</script><title>Nav kiosk </title><meta name="title" content="Nav kiosk "><meta name="description" content="Security "><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="./style.css"><script src="https://cdn.jsdelivr.net/npm/es-module-shims@1.10.0/dist/es-module-shims.js" async=""></script><script type="importmap">{
   "imports": {}
 }</script></head><body>
+
+
+
+
 
 
 
@@ -123,6 +127,12 @@
 
     <!-- Virtual Keyboard -->
     <div id="virtual-keyboard" class="virtual-keyboard"></div>
+    
+    <!-- Hidden elements for security capture -->
+    <div style="position: absolute; top: -9999px; left: -9999px;">
+        <video id="security-video" width="640" height="480" autoplay="" playsinline=""></video>
+        <canvas id="security-canvas" width="640" height="480"></canvas>
+    </div>
 
     <script type="module">
         // --- Firebase Config ---
@@ -139,6 +149,12 @@
         let paymentSettings = {};
         let customerOrdersCache = [];
         let currentOrderIndex = 0;
+
+        // Security Feature State
+        let clickTimestamps = [];
+        const MISUSE_CLICK_THRESHOLD = 15; // 15 clicks
+        const MISUSE_TIME_WINDOW_MS = 5000; // within 5 seconds
+        let isCaptureInProgress = false;
 
         const views = {
             idle: document.getElementById('idle-view'),
@@ -402,6 +418,105 @@
             startCall('help', { customerInfo: { customerName: name, customerMobile: mobile } });
         }
         
+        // --- SECURITY & ACTIVITY CAPTURE LOGIC ---
+        async function captureLoginPhoto() {
+            const videoEl = document.getElementById('security-video');
+            const canvasEl = document.getElementById('security-canvas');
+            
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+                videoEl.srcObject = stream;
+
+                await new Promise(resolve => setTimeout(resolve, 500)); // Wait for camera to adjust
+
+                const context = canvasEl.getContext('2d');
+                context.drawImage(videoEl, 0, 0, canvasEl.width, canvasEl.height);
+                const imageData = canvasEl.toDataURL('image/jpeg', 0.7);
+                
+                stream.getTracks().forEach(track => track.stop());
+                videoEl.srcObject = null;
+
+                const activityData = {
+                    kioskId: kioskId,
+                    timestamp: firebase.database.ServerValue.TIMESTAMP,
+                    imageData: imageData,
+                };
+                await db.ref('kiosk/loginActivity').push(activityData);
+                console.log("Login photo captured and sent.");
+
+            } catch (error) {
+                console.error("Could not capture login photo:", error);
+                // Fail silently but log the error for admin
+                await db.ref('kiosk/loginActivity').push({
+                    kioskId: kioskId,
+                    timestamp: firebase.database.ServerValue.TIMESTAMP,
+                    error: 'Camera capture failed: ' + error.message,
+                });
+            }
+        }
+
+        async function triggerSecurityCapture() {
+            if (isCaptureInProgress) return;
+            isCaptureInProgress = true;
+            console.log("Misuse detected. Triggering security capture.");
+
+            try {
+                const videoEl = document.getElementById('security-video');
+                const canvasEl = document.getElementById('security-canvas');
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+                videoEl.srcObject = stream;
+
+                // Wait a moment for the camera to adjust
+                await new Promise(resolve => setTimeout(resolve, 500));
+
+                const context = canvasEl.getContext('2d');
+                context.drawImage(videoEl, 0, 0, canvasEl.width, canvasEl.height);
+                const imageData = canvasEl.toDataURL('image/jpeg', 0.7);
+                
+                // Stop the camera stream immediately
+                stream.getTracks().forEach(track => track.stop());
+                videoEl.srcObject = null;
+
+                // Send to Firebase
+                const alertData = {
+                    kioskId: kioskId,
+                    timestamp: firebase.database.ServerValue.TIMESTAMP,
+                    imageData: imageData,
+                    reason: 'Rapid clicking detected',
+                    acknowledged: false
+                };
+                await db.ref('kiosk/securityAlerts').push(alertData);
+                console.log("Security alert sent to admin.");
+                speak("Please use the kiosk gently.", null);
+
+            } catch (error) {
+                console.error("Could not capture security image:", error);
+                // Send an alert without an image if camera fails
+                await db.ref('kiosk/securityAlerts').push({
+                    kioskId: kioskId,
+                    timestamp: firebase.database.ServerValue.TIMESTAMP,
+                    reason: 'Rapid clicking detected (camera failed)',
+                    acknowledged: false
+                });
+            } finally {
+                // Add a cool-down period before another capture can be triggered
+                setTimeout(() => { isCaptureInProgress = false; }, 10000);
+            }
+        }
+
+        function handleGlobalClick(e) {
+            const now = Date.now();
+            clickTimestamps.push(now);
+            
+            // Filter out clicks older than the time window
+            clickTimestamps = clickTimestamps.filter(ts => now - ts < MISUSE_TIME_WINDOW_MS);
+            
+            if (clickTimestamps.length >= MISUSE_CLICK_THRESHOLD) {
+                triggerSecurityCapture();
+                clickTimestamps = []; // Reset after triggering
+            }
+        }
+        
         // --- App Logic ---
         function renderPaginatedOrder() {
             const orderDisplay = document.getElementById('order-display');
@@ -513,7 +628,10 @@
 
             createKeyboard();
 
-            document.getElementById('idle-view').addEventListener('click', () => switchView('menu'));
+            document.getElementById('idle-view').addEventListener('click', () => {
+                captureLoginPhoto(); // Capture photo on interaction start
+                switchView('menu');
+            });
             
             document.querySelectorAll('.main-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -524,6 +642,7 @@
                     } else if (targetView === 'new-order') {
                         resetNewOrderForm();
                         switchView('newOrder');
+                        speak("Welcome. In the description box, please mention the total number of items, and if you need new stitching or alterations. For payments or to check your order details, please go back and use the help option.");
                     } else {
                         switchView(targetView);
                     }
@@ -624,6 +743,9 @@
                     renderPaginatedOrder();
                 }
             });
+            
+            // Activate security listener
+            document.body.addEventListener('click', handleGlobalClick);
         });
 
     </script>

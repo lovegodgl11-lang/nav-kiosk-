@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" class=""><head><script>window.livecodes = window.livecodes || {};</script><title>Nav kiosk </title><meta name="title" content="Nav kiosk "><meta name="description" content="Atm style "><meta charset="UTF-8">
+<html lang="en" class=""><head><script>window.livecodes = window.livecodes || {};</script><title>Kiosk with call</title><meta name="title" content="Kiosk with call"><meta name="description" content="Nav kiosk "><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="./style.css"><script src="https://cdn.jsdelivr.net/npm/es-module-shims@1.10.0/dist/es-module-shims.js" async=""></script><script type="importmap">{
   "imports": {}
 }</script></head><body>
-
-
 
 
 
@@ -58,9 +56,9 @@
     <div id="menu-view" class="view flex-col items-center justify-center text-center p-8 w-full h-full">
         <h1 class="text-4xl font-bold mb-10">How can I help you today?</h1>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
-            <button class="main-btn bg-indigo-600 text-white p-8 rounded-2xl shadow-lg text-2xl font-semibold" data-target="order-view">New Order</button>
+            <button class="main-btn bg-indigo-600 text-white p-8 rounded-2xl shadow-lg text-2xl font-semibold" data-target="new-order-view">New Order</button>
             <button class="main-btn bg-green-600 text-white p-8 rounded-2xl shadow-lg text-2xl font-semibold" data-target="status-view">Check Status &amp; Pay</button>
-            <button class="main-btn bg-amber-500 text-white p-8 rounded-2xl shadow-lg text-2xl font-semibold" data-target="help-view">Help</button>
+            <button class="main-btn bg-amber-500 text-white p-8 rounded-2xl shadow-lg text-2xl font-semibold" data-target="help-request-view">Help</button>
         </div>
     </div>
     
@@ -80,7 +78,18 @@
          <p class="text-gray-400 mb-8">Please enter your 10-digit mobile number.</p>
          <div class="w-full max-w-md">
             <input type="tel" id="mobile-number-input" class="form-input block w-full px-4 py-3 border bg-gray-700 border-gray-600 rounded-md shadow-sm text-center text-3xl tracking-widest mb-4" placeholder="_ _ _ _ _  _ _ _ _ _" readonly="">
-            <div id="orders-list-container" class="hidden mt-4 bg-gray-800 p-4 rounded-lg max-h-[50vh] overflow-y-auto"></div>
+            
+            <div id="orders-container" class="hidden mt-4">
+                <div id="order-display" class="bg-gray-800 p-4 rounded-lg min-h-[400px] flex flex-col justify-center">
+                    <!-- Single order content will be injected here -->
+                </div>
+                <div id="pagination-controls" class="hidden flex justify-between items-center mt-4">
+                    <button id="prev-order-btn" class="bg-gray-600 text-white py-2 px-6 rounded-md font-semibold text-lg disabled:opacity-50">&lt; Prev</button>
+                    <span id="order-counter" class="text-gray-400 font-semibold"></span>
+                    <button id="next-order-btn" class="bg-gray-600 text-white py-2 px-6 rounded-md font-semibold text-lg disabled:opacity-50">Next &gt;</button>
+                </div>
+            </div>
+
             <button id="back-to-menu-status" class="mt-6 w-full bg-gray-600 text-white py-3 px-4 rounded-md font-semibold text-lg">Back to Menu</button>
          </div>
     </div>
@@ -96,6 +105,19 @@
             
             <button id="submit-order-request-btn" class="w-full bg-indigo-600 text-white py-3 px-4 rounded-md font-semibold text-lg">Submit Request</button>
             <button id="back-to-menu-order" class="mt-2 w-full bg-gray-600 text-white py-3 px-4 rounded-md font-semibold text-lg">Back to Menu</button>
+        </div>
+    </div>
+
+    <!-- NEW HELP REQUEST VIEW -->
+    <div id="help-request-view" class="view flex-col items-center justify-center p-8 w-full h-full">
+        <h1 class="text-3xl font-bold mb-2">Request Help</h1>
+        <p class="text-gray-400 mb-8">Please enter your details to start a video call.</p>
+        <div class="w-full max-w-md space-y-4">
+            <input type="text" id="help-name" class="form-input block w-full px-4 py-3 border bg-gray-700 border-gray-600 rounded-md shadow-sm text-center text-2xl" placeholder="Your Name" readonly="">
+            <input type="tel" id="help-mobile" class="form-input block w-full px-4 py-3 border bg-gray-700 border-gray-600 rounded-md shadow-sm text-center text-2xl" placeholder="Your Mobile Number" readonly="">
+            
+            <button id="request-video-call-btn" class="w-full bg-amber-600 text-white py-3 px-4 rounded-md font-semibold text-lg">Request Video Call</button>
+            <button id="back-to-menu-help" class="mt-2 w-full bg-gray-600 text-white py-3 px-4 rounded-md font-semibold text-lg">Back to Menu</button>
         </div>
     </div>
 
@@ -115,6 +137,8 @@
         let db, recognition, kioskId, peerConnection, localStream, remoteStream, kioskLiveRef, currentOrderToVerify = null, currentCallLogKey = null;
         let isKeyboardVisible = false, currentInput = null;
         let paymentSettings = {};
+        let customerOrdersCache = [];
+        let currentOrderIndex = 0;
 
         const views = {
             idle: document.getElementById('idle-view'),
@@ -122,6 +146,7 @@
             status: document.getElementById('status-view'),
             call: document.getElementById('call-view'),
             newOrder: document.getElementById('new-order-view'),
+            helpRequest: document.getElementById('help-request-view'),
         };
 
         // --- Core Functions ---
@@ -176,8 +201,8 @@
         // --- WebRTC Logic ---
         const rtcConfig = { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] };
 
-        async function startCall(callType, orderInfo = null) {
-            currentOrderToVerify = orderInfo;
+        async function startCall(callType, callDetails = {}) {
+            currentOrderToVerify = callDetails.orderInfo || null;
             switchView('call');
 
             let title, status, callLogType;
@@ -201,7 +226,8 @@
                 kioskId: kioskId,
                 kioskName: kioskInfo.name,
                 callType: callLogType,
-                orderInfo: orderInfo || null,
+                orderInfo: callDetails.orderInfo || null,
+                customerInfo: callDetails.customerInfo || null,
                 initiatedAt: firebase.database.ServerValue.TIMESTAMP,
                 status: 'ringing',
                 adminSaw: false
@@ -242,7 +268,8 @@
                 kioskLiveRef.set({
                     status: status,
                     kioskInfo: kioskInfo,
-                    orderInfo: orderInfo,
+                    orderInfo: callDetails.orderInfo || null,
+                    customerInfo: callDetails.customerInfo || null,
                     timestamp: firebase.database.ServerValue.TIMESTAMP,
                     webrtc: { offer: { sdp: offer.sdp, type: offer.type } }
                 });
@@ -293,11 +320,7 @@
                 currentCallLogKey = null;
             }
             if(kioskLiveRef) {
-                kioskLiveRef.child('status').once('value', snapshot => {
-                    if (snapshot.exists() && snapshot.val() !== 'active_idle') {
-                        kioskLiveRef.update({ status: 'active_idle' });
-                    }
-                });
+                kioskLiveRef.remove();
             }
             
             document.getElementById('local-video').srcObject = null;
@@ -353,51 +376,107 @@
                 alert("Sorry, there was an error submitting your request. Please try again.");
             }
         }
+        
+        // --- HELP REQUEST FORM LOGIC ---
+        function resetHelpRequestForm() {
+            document.getElementById('help-name').value = '';
+            document.getElementById('help-mobile').value = '';
+        }
 
+        async function submitHelpRequest() {
+            const name = document.getElementById('help-name').value.trim();
+            const mobile = document.getElementById('help-mobile').value.trim();
+
+            if (!name || !mobile) {
+                speak("Please fill out your name and mobile number.");
+                alert("Please fill out your name and mobile number.");
+                return;
+            }
+            if (!/^\d{10}$/.test(mobile)) {
+                speak("Please enter a valid 10-digit mobile number.");
+                alert("Please enter a valid 10-digit mobile number.");
+                return;
+            }
+
+            hideKeyboard();
+            startCall('help', { customerInfo: { customerName: name, customerMobile: mobile } });
+        }
+        
         // --- App Logic ---
+        function renderPaginatedOrder() {
+            const orderDisplay = document.getElementById('order-display');
+            const paginationControls = document.getElementById('pagination-controls');
+            const orderCounter = document.getElementById('order-counter');
+            const prevBtn = document.getElementById('prev-order-btn');
+            const nextBtn = document.getElementById('next-order-btn');
+
+            if (customerOrdersCache.length === 0) {
+                orderDisplay.innerHTML = '<p class="text-center text-gray-300">No orders found for this number.</p>';
+                paginationControls.classList.add('hidden');
+                return;
+            }
+
+            // Show pagination if more than one order
+            if (customerOrdersCache.length > 1) {
+                paginationControls.classList.remove('hidden');
+                orderCounter.textContent = `Order ${currentOrderIndex + 1} of ${customerOrdersCache.length}`;
+                prevBtn.disabled = currentOrderIndex === 0;
+                nextBtn.disabled = currentOrderIndex === customerOrdersCache.length - 1;
+            } else {
+                paginationControls.classList.add('hidden');
+            }
+
+            const order = customerOrdersCache[currentOrderIndex];
+            const totalCharges = order.type === 'stitching' ? (order.items || []).reduce((s, i) => s + (parseFloat(i.charges) || 0), 0) : (parseFloat(order.charges) || 0);
+            const received = order.receivedPayment || 0;
+            const balance = totalCharges - received;
+            
+            const upiId = paymentSettings.upiId || 'navrose.stitching@okhdfcbank';
+            const upiLink = `upi://pay?pa=${upiId}&pn=Navrose%20Stitching%20Point&am=${balance.toFixed(2)}`;
+            const qrImageHtml = paymentSettings.qrCodeBase64 
+                ? `<img src="${paymentSettings.qrCodeBase64}" class="mx-auto rounded-lg bg-white p-1 w-40 h-40 object-contain">
+                   <p class="text-xs text-center mt-1 text-gray-300">Please enter amount ₹${balance.toFixed(2)} manually.</p>`
+                : `<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(upiLink)}" class="mx-auto rounded-lg bg-white p-1">`;
+
+            const orderHTML = `
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <div class="flex justify-between items-center">
+                        <p class="font-bold">Order #${order.orderNumber}</p>
+                        <span class="text-sm font-semibold px-2 py-1 rounded-full ${order.status === 'Completed' ? 'bg-green-200 text-green-800' : 'bg-yellow-200 text-yellow-800'}">${order.status}</span>
+                    </div>
+                    <p class="text-sm text-gray-400">Balance: <span class="font-bold ${balance > 0 ? 'text-red-400' : 'text-green-400'}">₹${balance.toFixed(2)}</span></p>
+                    ${balance > 0 ? `<div class="mt-3">
+                        ${qrImageHtml}
+                        <button class="verify-payment-btn w-full mt-3 bg-blue-600 text-white py-2 rounded-md font-semibold" data-order-id="${order.id || ''}" data-firebase-key="${order.firebaseKey}" data-order-number="${order.orderNumber}">I Have Paid, Verify Now</button>
+                    </div>` : '<p class="text-center mt-8 font-semibold text-green-400">This order is fully paid. Thank you!</p>'}
+                </div>
+            `;
+            orderDisplay.innerHTML = orderHTML;
+        }
+
         async function checkStatusAndPay() {
             const mobile = document.getElementById('mobile-number-input').value;
             if (mobile.length !== 10) return;
             
-            const ordersListContainer = document.getElementById('orders-list-container');
-            ordersListContainer.innerHTML = '<p class="text-center">Searching for orders...</p>';
-            ordersListContainer.classList.remove('hidden');
+            const ordersContainer = document.getElementById('orders-container');
+            const orderDisplay = document.getElementById('order-display');
+            ordersContainer.classList.remove('hidden');
+            orderDisplay.innerHTML = '<p class="text-center text-gray-300">Searching for orders...</p>';
 
             const snapshot = await db.ref('orders').orderByChild('customerMobile').equalTo(mobile).once('value');
             if (!snapshot.exists()) {
-                ordersListContainer.innerHTML = '<p class="text-center">No orders found for this number.</p>';
+                customerOrdersCache = [];
+                currentOrderIndex = 0;
+                renderPaginatedOrder();
                 return;
             }
             
             const ordersData = snapshot.val();
-            const customerOrders = Object.keys(ordersData).map(key => ({ ...ordersData[key], firebaseKey: key }));
-            
-            ordersListContainer.innerHTML = customerOrders.map(order => {
-                const totalCharges = order.type === 'stitching' ? (order.items || []).reduce((s, i) => s + (parseFloat(i.charges) || 0), 0) : (parseFloat(order.charges) || 0);
-                const received = order.receivedPayment || 0;
-                const balance = totalCharges - received;
-                
-                const upiId = paymentSettings.upiId || 'navrose.stitching@okhdfcbank';
-                const upiLink = `upi://pay?pa=${upiId}&pn=Navrose%20Stitching%20Point&am=${balance.toFixed(2)}`;
-                const qrImageHtml = paymentSettings.qrCodeBase64 
-                    ? `<img src="${paymentSettings.qrCodeBase64}" class="mx-auto rounded-lg bg-white p-1 w-40 h-40 object-contain">
-                       <p class="text-xs text-center mt-1 text-gray-300">Please enter amount ₹${balance.toFixed(2)} manually.</p>`
-                    : `<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(upiLink)}" class="mx-auto rounded-lg bg-white p-1">`;
-
-                return `
-                    <div class="bg-gray-700 p-4 rounded-lg mb-3">
-                        <div class="flex justify-between items-center">
-                            <p class="font-bold">Order #${order.orderNumber}</p>
-                            <span class="text-sm font-semibold px-2 py-1 rounded-full ${order.status === 'Completed' ? 'bg-green-200 text-green-800' : 'bg-yellow-200 text-yellow-800'}">${order.status}</span>
-                        </div>
-                        <p class="text-sm text-gray-400">Balance: <span class="font-bold ${balance > 0 ? 'text-red-400' : 'text-green-400'}">₹${balance.toFixed(2)}</span></p>
-                        ${balance > 0 ? `<div class="mt-3">
-                            ${qrImageHtml}
-                            <button class="verify-payment-btn w-full mt-3 bg-blue-600 text-white py-2 rounded-md font-semibold" data-order-id="${order.id || ''}" data-firebase-key="${order.firebaseKey}" data-order-number="${order.orderNumber}">I Have Paid, Verify Now</button>
-                        </div>` : ''}
-                    </div>
-                `;
-            }).join('');
+            customerOrdersCache = Object.keys(ordersData).map(key => ({ ...ordersData[key], firebaseKey: key }));
+             // Sort orders to show most recent first
+            customerOrdersCache.sort((a,b) => (b.bookingDate && a.bookingDate) ? new Date(b.bookingDate) - new Date(a.bookingDate) : 0);
+            currentOrderIndex = 0;
+            renderPaginatedOrder();
         }
 
         // --- Event Listeners & Init ---
@@ -438,21 +517,22 @@
             
             document.querySelectorAll('.main-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    const targetView = btn.dataset.target;
-                    if (targetView === 'help-view') {
-                        startCall('help');
-                    } else if (targetView === 'order-view') {
+                    const targetView = btn.dataset.target.replace('-view', '');
+                    if (targetView === 'help-request') {
+                        resetHelpRequestForm();
+                        switchView('helpRequest');
+                    } else if (targetView === 'new-order') {
                         resetNewOrderForm();
                         switchView('newOrder');
                     } else {
-                        switchView(targetView.replace('-view', ''));
+                        switchView(targetView);
                     }
                 });
             });
 
             document.getElementById('back-to-menu-status').addEventListener('click', () => {
                 document.getElementById('mobile-number-input').value = '';
-                document.getElementById('orders-list-container').classList.add('hidden');
+                document.getElementById('orders-container').classList.add('hidden');
                 hideKeyboard();
                 switchView('menu');
             });
@@ -461,14 +541,22 @@
                 resetNewOrderForm();
                 switchView('menu');
             });
+            document.getElementById('back-to-menu-help').addEventListener('click', () => {
+                hideKeyboard();
+                resetHelpRequestForm();
+                switchView('menu');
+            });
             
             document.getElementById('submit-order-request-btn').addEventListener('click', submitOrderRequest);
+            document.getElementById('request-video-call-btn').addEventListener('click', submitHelpRequest);
             document.getElementById('end-call-btn').addEventListener('click', endCall);
 
             document.getElementById('mobile-number-input').addEventListener('focus', (e) => showKeyboard(e.target));
             document.getElementById('new-order-name').addEventListener('focus', (e) => showKeyboard(e.target));
             document.getElementById('new-order-mobile').addEventListener('focus', (e) => showKeyboard(e.target));
             document.getElementById('new-order-description').addEventListener('focus', (e) => showKeyboard(e.target));
+            document.getElementById('help-name').addEventListener('focus', (e) => showKeyboard(e.target));
+            document.getElementById('help-mobile').addEventListener('focus', (e) => showKeyboard(e.target));
             
             document.getElementById('virtual-keyboard').addEventListener('click', (e) => {
                 if (!e.target.matches('.keyboard-key')) return;
@@ -502,7 +590,7 @@
                         number: e.target.dataset.orderNumber
                     };
                     hideKeyboard();
-                    startCall('payment', orderInfo);
+                    startCall('payment', { orderInfo: orderInfo });
                 } else if(e.target.id !== 'mobile-number-input' && isKeyboardVisible && !e.target.closest('#virtual-keyboard')) {
                     hideKeyboard();
                 }
@@ -516,6 +604,26 @@
                 }
             });
 
+            document.getElementById('help-request-view').addEventListener('click', (e) => {
+                const isInput = e.target.matches('#help-name, #help-mobile');
+                const isKeyboard = e.target.closest('#virtual-keyboard');
+                if (!isInput && !isKeyboard && isKeyboardVisible) {
+                    hideKeyboard();
+                }
+            });
+
+            document.getElementById('prev-order-btn').addEventListener('click', () => {
+                if (currentOrderIndex > 0) {
+                    currentOrderIndex--;
+                    renderPaginatedOrder();
+                }
+            });
+            document.getElementById('next-order-btn').addEventListener('click', () => {
+                if (currentOrderIndex < customerOrdersCache.length - 1) {
+                    currentOrderIndex++;
+                    renderPaginatedOrder();
+                }
+            });
         });
 
     </script>

@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" class=""><head><script>window.livecodes = window.livecodes || {};</script><title>Nav-kiosk </title><meta name="title" content="Nav-kiosk "><meta name="description" content="Atm style "><meta charset="UTF-8">
+<html lang="en" class=""><head><script>window.livecodes = window.livecodes || {};</script><title>Nav kiosk </title><meta name="title" content="Nav kiosk "><meta name="description" content="Atm style "><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="./style.css"><script src="https://cdn.jsdelivr.net/npm/es-module-shims@1.10.0/dist/es-module-shims.js" async=""></script><script type="importmap">{
   "imports": {}
 }</script></head><body>
+
+
 
 
 
@@ -110,8 +112,9 @@
         };
         
         // --- App State & Elements ---
-        let db, recognition, kioskId, peerConnection, localStream, remoteStream, kioskLiveRef, currentOrderToVerify = null;
+        let db, recognition, kioskId, peerConnection, localStream, remoteStream, kioskLiveRef, currentOrderToVerify = null, currentCallLogKey = null;
         let isKeyboardVisible = false, currentInput = null;
+        let paymentSettings = {};
 
         const views = {
             idle: document.getElementById('idle-view'),
@@ -177,14 +180,33 @@
             currentOrderToVerify = orderInfo;
             switchView('call');
 
-            let title, status;
+            let title, status, callLogType;
             if (callType === 'help') {
                 title = 'Requesting Help';
                 status = 'help_requested';
+                callLogType = 'Help Request';
             } else { // 'payment'
                 title = 'Payment Verification';
                 status = 'payment_verification_pending';
+                callLogType = 'Payment Verification';
             }
+            
+            const kioskInfo = { name: "Kiosk 1" };
+
+            // Create call log entry
+            const callLogRef = db.ref('kiosk/callLogs').push();
+            currentCallLogKey = callLogRef.key;
+            const logData = {
+                key: currentCallLogKey,
+                kioskId: kioskId,
+                kioskName: kioskInfo.name,
+                callType: callLogType,
+                orderInfo: orderInfo || null,
+                initiatedAt: firebase.database.ServerValue.TIMESTAMP,
+                status: 'ringing',
+                adminSaw: false
+            };
+            await callLogRef.set(logData);
 
             document.getElementById('call-title').textContent = title;
             document.getElementById('call-subtitle').textContent = 'Connecting to staff...';
@@ -217,7 +239,6 @@
                 const offer = await peerConnection.createOffer();
                 await peerConnection.setLocalDescription(offer);
 
-                const kioskInfo = { name: "Kiosk 1" }; // Can be dynamic later
                 kioskLiveRef.set({
                     status: status,
                     kioskInfo: kioskInfo,
@@ -230,6 +251,9 @@
                     if (snapshot.exists() && !peerConnection.currentRemoteDescription) {
                         await peerConnection.setRemoteDescription(snapshot.val());
                         kioskLiveRef.update({ status: 'in_call' });
+                        if (currentCallLogKey) {
+                            db.ref(`kiosk/callLogs/${currentCallLogKey}`).update({ status: 'answered', answeredAt: firebase.database.ServerValue.TIMESTAMP });
+                        }
                         document.getElementById('call-title').textContent = 'Connected';
                         document.getElementById('call-subtitle').textContent = 'You are now speaking with a staff member.';
                     }
@@ -251,9 +275,25 @@
                 localStream.getTracks().forEach(track => track.stop());
                 localStream = null;
             }
+            if (currentCallLogKey) {
+                const logRef = db.ref(`kiosk/callLogs/${currentCallLogKey}`);
+                logRef.child('status').once('value', statusSnapshot => {
+                    if (statusSnapshot.val() === 'ringing') {
+                        logRef.update({ 
+                            status: 'cancelled_by_customer',
+                            completedAt: firebase.database.ServerValue.TIMESTAMP
+                        });
+                    } else if (statusSnapshot.val() === 'answered') {
+                        logRef.update({
+                            status: 'completed',
+                            completedAt: firebase.database.ServerValue.TIMESTAMP
+                        });
+                    }
+                });
+                currentCallLogKey = null;
+            }
             if(kioskLiveRef) {
                 kioskLiveRef.child('status').once('value', snapshot => {
-                    // Only update status if it's an active call, not if it's already idle.
                     if (snapshot.exists() && snapshot.val() !== 'active_idle') {
                         kioskLiveRef.update({ status: 'active_idle' });
                     }
@@ -337,6 +377,13 @@
                 const received = order.receivedPayment || 0;
                 const balance = totalCharges - received;
                 
+                const upiId = paymentSettings.upiId || 'navrose.stitching@okhdfcbank';
+                const upiLink = `upi://pay?pa=${upiId}&pn=Navrose%20Stitching%20Point&am=${balance.toFixed(2)}`;
+                const qrImageHtml = paymentSettings.qrCodeBase64 
+                    ? `<img src="${paymentSettings.qrCodeBase64}" class="mx-auto rounded-lg bg-white p-1 w-40 h-40 object-contain">
+                       <p class="text-xs text-center mt-1 text-gray-300">Please enter amount ₹${balance.toFixed(2)} manually.</p>`
+                    : `<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(upiLink)}" class="mx-auto rounded-lg bg-white p-1">`;
+
                 return `
                     <div class="bg-gray-700 p-4 rounded-lg mb-3">
                         <div class="flex justify-between items-center">
@@ -345,7 +392,7 @@
                         </div>
                         <p class="text-sm text-gray-400">Balance: <span class="font-bold ${balance > 0 ? 'text-red-400' : 'text-green-400'}">₹${balance.toFixed(2)}</span></p>
                         ${balance > 0 ? `<div class="mt-3">
-                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=navrose.stitching@okhdfcbank%26pn=Navrose%20Stitching%20Point%26am=${balance.toFixed(2)}" class="mx-auto rounded-lg bg-white p-1">
+                            ${qrImageHtml}
                             <button class="verify-payment-btn w-full mt-3 bg-blue-600 text-white py-2 rounded-md font-semibold" data-order-id="${order.id || ''}" data-firebase-key="${order.firebaseKey}" data-order-number="${order.orderNumber}">I Have Paid, Verify Now</button>
                         </div>` : ''}
                     </div>
@@ -359,6 +406,10 @@
             db = firebase.database();
             kioskId = 'kiosk_01'; // Can be made dynamic
             kioskLiveRef = db.ref(`kiosk/liveFeeds/${kioskId}`);
+            
+            db.ref('kiosk/paymentSettings').on('value', snapshot => {
+                paymentSettings = snapshot.val() || {};
+            });
 
             // Set initial idle state
             kioskLiveRef.update({ status: 'active_idle' });

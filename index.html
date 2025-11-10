@@ -1,754 +1,2295 @@
 <!DOCTYPE html>
-<html lang="en" class=""><head><script>window.livecodes = window.livecodes || {};</script><title>Nav kiosk </title><meta name="title" content="Nav kiosk "><meta name="description" content="Security "><meta charset="UTF-8">
+<html lang="en" class=""><head><script>window.livecodes = window.livecodes || {};</script><title>Untitled Project</title><meta name="title" content="Untitled Project"><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="./style.css"><script src="https://cdn.jsdelivr.net/npm/es-module-shims@1.10.0/dist/es-module-shims.js" async=""></script><script type="importmap">{
   "imports": {}
 }</script></head><body>
+<script>window.livecodes = window.livecodes || {};</script><title>Qr scanner payment </title><meta name="title" content="Qr scanner payment "><meta name="description" content="Wallet to wallet "><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><style id="__livecodes_styles__"></style><script src="https://cdn.jsdelivr.net/npm/es-module-shims@1.10.0/dist/es-module-shims.js" async=""></script>
+<script>window.livecodes = window.livecodes || {};</script><title>Customer ver 2.0 dms</title><meta name="title" content="Customer ver 2.0 dms"><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><style id="__livecodes_styles__"></style><script src="https://cdn.jsdelivr.net/npm/es-module-shims@1.10.0/dist/es-module-shims.js" async=""></script>
 
 
+    <script>window.livecodes = window.livecodes || {};</script>
+    <title>Customer </title>
+    <meta name="title" content="Customer ">
+    <meta name="description" content="Dms final ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://cdn.jsdelivr.net/npm/es-module-shims@1.10.0/dist/es-module-shims.js" async=""></script>
+    
 
 
-
-
-
+    <script>window.livecodes = window.livecodes || {};</script>
+    <title>Customer </title>
+    <meta name="title" content="Customer ">
+    <meta name="description" content="Update ui">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://cdn.jsdelivr.net/npm/es-module-shims@1.10.0/dist/es-module-shims.js" async=""></script>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Voice Assistant Kiosk</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database-compat.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Deals - Dump Money Solution</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-        html, body { height: 100%; width: 100%; margin: 0; overflow: hidden; }
-        body { font-family: 'Inter', sans-serif; background-color: #111827; color: #f9fafb; -webkit-tap-highlight-color: transparent; }
-        .view { display: none; width: 100%; height: 100%; }
-        .view.active { display: flex; }
-        .main-btn {
-            transform: scale(1);
-            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        /* All your existing styles here */
+        :root {
+            --primary-color: #059669;
+            --primary-hover: #047857;
+            --secondary-color: #f0fdf4;
+            --text-color: #111827;
+            --text-light: #6b7280;
+            --border-color: #d1d5db;
+            --background-color: #f9fafb;
+            --card-background: #ffffff;
+            --danger-color: #ef4444;
+            --success-color: #22c55e;
+            --warning-color: #f59e0b;
+            --font-family: 'Inter', sans-serif;
+            --border-radius: 0.5rem;
+            --box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
         }
-        .main-btn:active { transform: scale(0.95); }
-        .virtual-keyboard {
-            position: fixed; bottom: 0; left: 0; right: 0;
-            background-color: #2c3e50; padding: 10px;
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
-            display: none; z-index: 100;
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-        .keyboard-row { display: flex; justify-content: center; margin: 5px 0; }
-        .keyboard-key {
-            background: #ecf0f1; color: #2c3e50; border: none;
-            border-radius: 5px; padding: 15px 20px; margin: 3px;
-            font-size: 1.2em; font-weight: 500; cursor: pointer;
-            flex-grow: 1; flex-basis: 0; display: flex; align-items: center; justify-content: center;
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--background-color);
+            color: var(--text-color);
         }
-        .keyboard-key:active { background-color: #bdc3c7; }
-        .key-special { flex-grow: 1.5; background-color: #95a5a6; color: white; }
+
+        #root {
+            width: 100%;
+        }
+        
+        .page {
+            width: 100%;
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        /* Auth Card */
+        .auth-card-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        .auth-card {
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid var(--border-color);
+        }
+        .auth-card h1 { font-size: 1.75rem; text-align: center; margin-bottom: 0.5rem; }
+        .auth-card p { text-align: center; color: var(--text-light); margin-bottom: 2rem; }
+        .form-group { margin-bottom: 1.25rem; }
+        .form-group label { display: block; font-weight: 500; margin-bottom: 0.5rem; font-size: 0.875rem; }
+        .form-group input, .form-group textarea { width: 100%; padding: 0.75rem 1rem; border-radius: var(--border-radius); border: 1px solid var(--border-color); font-size: 1rem; }
+        .error-message { color: var(--danger-color); }
+        .link { color: var(--primary-color); cursor: pointer; font-weight: 500; text-decoration: none; }
+        .link:hover { text-decoration: underline; }
+
+        .app-header {
+            background-color: var(--card-background);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 2px 4px rgb(0 0 0 / 0.05);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .logo a {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .search-bar {
+            position: relative;
+            flex-grow: 1;
+            max-width: 500px;
+            min-width: 200px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 999px;
+            border: 1px solid var(--border-color);
+            font-size: 1rem;
+            background-color: #f3f4f6;
+        }
+        
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.2);
+            background-color: var(--card-background);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid transparent;
+            font-size: 0.875rem;
+            transition: background-color 0.2s, border-color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+         .btn:disabled { background-color: #9ca3af; cursor: not-allowed; }
+
+        .btn-primary { background-color: var(--primary-color); color: white; }
+        .btn-primary:hover:not(:disabled) { background-color: var(--primary-hover); }
+        .btn-secondary { background-color: #fff; color: var(--text-color); border-color: var(--border-color); }
+        .btn-secondary:hover { background-color: #f3f4f6; }
+
+
+        .wallet-info {
+            padding: 0.5rem 0.75rem;
+            background-color: var(--secondary-color);
+            border-radius: var(--border-radius);
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .cart-button, .notification-button {
+            position: relative;
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 0.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        
+        .discount-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: var(--danger-color);
+            color: white;
+            padding: 0.25rem 0.6rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        .product-info {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-name { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .product-shop { font-size: 0.875rem; color: var(--text-light); margin-bottom: 0.75rem; }
+        .product-description { font-size: 0.875rem; color: var(--text-light); line-height: 1.5; flex-grow: 1; margin-bottom: 1rem; }
+        .product-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 1rem; border-top: 1px solid #f3f4f6; }
+        .price-container { display: flex; flex-direction: column; align-items: flex-start; }
+        .product-price { font-size: 1.25rem; font-weight: 700; color: var(--primary-color); }
+        .original-price { font-size: 0.9rem; color: var(--text-light); text-decoration: line-through; }
+        
+        .btn-add-to-cart { background-color: var(--primary-color); color: white; border: none; padding: 0.5rem 1rem; font-size: 0.875rem; font-weight: 600; border-radius: var(--border-radius); cursor: pointer; transition: background-color 0.2s; }
+        .btn-add-to-cart:hover { background-color: var(--primary-hover); }
+        .product-location { background-color: #eef2ff; color: #4338ca; padding: 0.5rem; border-radius: 0.25rem; font-size: 0.875rem; font-weight: 500; margin-bottom: 1rem; }
+        .empty-state { text-align: center; padding: 4rem 2rem; background-color: var(--card-background); border: 1px dashed var(--border-color); border-radius: var(--border-radius); }
+
+        /* Modal & Dropdown Styles */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(17, 24, 39, 0.6);
+            z-index: 1000; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+            display: none; justify-content: center; align-items: center; padding: 1rem;
+        }
+        .modal-overlay.active { display: flex; }
+
+        .modal-content {
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            width: 100%; max-width: 500px;
+            animation: fadeIn 0.3s ease-out;
+        }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-color); }
+        .modal-header h2 { font-size: 1.25rem; }
+        .btn-close { background: none; border: none; font-size: 2rem; cursor: pointer; color: var(--text-light); }
+        .modal-body { padding: 1.5rem; }
+        .modal-footer { display: flex; justify-content: flex-end; gap: 0.75rem; padding: 1.25rem 1.5rem; border-top: 1px solid var(--border-color); background-color: var(--background-color); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+
+        #cart-modal-content { max-width: 400px; position: fixed; right: 0; top: 0; height: 100%; margin: 0; border-radius: 0; animation: slideIn 0.3s ease-out; display: flex; flex-direction: column; }
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+        .cart-items { padding: 1rem; flex-grow: 1; overflow-y: auto; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0.5rem; border-bottom: 1px solid #f3f4f6; }
+        .cart-summary { padding: 1.5rem; border-top: 1px solid var(--border-color); background-color: var(--background-color); }
+        .promo-section { padding: 1rem; border-top: 1px solid var(--border-color); }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+        .summary-row.total { font-weight: 700; font-size: 1.1rem; border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: 1rem; }
+        #promo-feedback { font-size: 0.875rem; margin-top: 0.5rem; }
+
+        .notification-dropdown {
+            position: absolute; top: calc(100% + 10px); right: 0;
+            background-color: var(--card-background); border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow); width: 320px;
+            border: 1px solid var(--border-color); display: none;
+            z-index: 100;
+        }
+        .notification-dropdown.active { display: block; }
+        .notification-header { padding: 0.75rem 1rem; font-weight: 600; border-bottom: 1px solid var(--border-color); }
+        .notification-list { max-height: 300px; overflow-y: auto; }
+        .notification-item { padding: 0.75rem 1rem; border-bottom: 1px solid #f3f4f6; }
+        .notification-item:last-child { border: none; }
+        .notification-item p { font-size: 0.875rem; margin: 0; }
+        .notification-item.unread { background-color: var(--secondary-color); }
+        
+        #qr-code-container img { max-width: 200px; margin: 1rem auto; display: block; }
+        .upi-id { text-align: center; font-weight: 600; background: #f3f4f6; padding: 0.5rem; border-radius: 0.25rem; }
+        
+        /* Mobile Cart Popup */
+        .mobile-cart-popup {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .mobile-cart-popup.active {
+            transform: translateY(0);
+        }
+        
+        .mobile-cart-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .mobile-cart-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .close-cart-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .mobile-cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px 20px;
+        }
+        
+        .mobile-cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        
+        .item-info {
+            flex: 1;
+        }
+        
+        .item-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .item-price {
+            color: #059669;
+            font-weight: 600;
+        }
+        
+        .item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .quantity-btn {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            background: #f8f8f8;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .mobile-cart-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            background: white;
+        }
+        
+        .cart-total {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: right;
+        }
+        
+        #proceed-to-checkout {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        
+        /* Overlay for background dimming */
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+        }
+        
+        .cart-overlay.active {
+            display: block;
+        }
+        
+        /* Receipt styles */
+        #receipt-content {
+            font-family: monospace;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            border: 1px solid #ddd;
+            padding: 15px;
+            background: white;
+        }
+        
+        .receipt-header {
+            text-align: center;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed #000;
+        }
+        
+        .receipt-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .receipt-total {
+            margin-top: 10px;
+            padding-top: 5px;
+            border-top: 1px dashed #000;
+            font-weight: bold;
+        }
+        
+        .receipt-footer {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #666;
+        }
+        
+        /* History Tabs */
+        .history-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+            background-color: var(--card-background);
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            border: 1px solid var(--border-color);
+            border-bottom: none;
+            padding-top: 0.5rem;
+        }
+        
+        .history-tab {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            color: var(--text-light);
+            margin: 0 0.5rem;
+        }
+        
+        .history-tab.active {
+            border-bottom: 3px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .history-content {
+            display: none;
+        }
+        
+        .history-content.active {
+            display: block;
+        }
+        
+        .history-list-container {
+            background-color: var(--card-background);
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+        }
+
+        .history-item {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .history-item:last-child {
+            border-bottom: none;
+        }
+        
+        .history-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .history-item-title {
+            font-weight: 600;
+        }
+        
+        .history-item-date {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+        
+        .history-item-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        /* Wallet Ledger Table */
+        .history-list-container table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .history-list-container th, .history-list-container td {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .history-list-container th {
+            background-color: var(--secondary-color);
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+        .history-list-container td { font-size: 0.9rem; }
+        .history-list-container tbody tr:last-child td { border-bottom: none; }
+        .wallet-debit { color: var(--danger-color); }
+        .wallet-credit { color: var(--success-color); }
+        .wallet-balance { font-weight: 600; }
+        
+        @media (min-width: 768px) {
+            .mobile-cart-popup {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-bar { max-width: 100%; }
+            .header-actions { justify-content: space-between; }
+            .logo { text-align: center; margin-bottom: 0.5rem; }
+            #cart-modal-content {
+                max-width: 90%;
+                width: 90%;
+            }
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            .container { padding: 1rem; }
+            .page-title { font-size: 1.5rem; }
+        }
+        @media (max-width: 480px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+            .header-actions {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                justify-content: center;
+            }
+            .wallet-info, #topup-wallet-btn {
+                flex-grow: 1;
+                text-align: center;
+            }
+            #cart-modal-content {
+                max-width: 100%;
+                width: 100%;
+            }
+        }
     </style>
-<link rel="stylesheet" href="/index.css">
 
+    <div id="root">
+        <div id="loading-page" class="page active"><p>Loading...</p></div>
 
-
-    <!-- Views -->
-    <div id="idle-view" class="view active flex-col items-center justify-center text-center p-8 bg-gray-800 rounded-2xl shadow-lg w-full h-full">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 mx-auto text-indigo-400 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-        </svg>
-        <h1 class="text-5xl font-bold mt-6">Welcome</h1>
-        <p class="text-gray-400 mt-2 text-2xl">Tap anywhere to begin</p>
-    </div>
-
-    <div id="menu-view" class="view flex-col items-center justify-center text-center p-8 w-full h-full">
-        <h1 class="text-4xl font-bold mb-10">How can I help you today?</h1>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
-            <button class="main-btn bg-indigo-600 text-white p-8 rounded-2xl shadow-lg text-2xl font-semibold" data-target="new-order-view">New Order</button>
-            <button class="main-btn bg-green-600 text-white p-8 rounded-2xl shadow-lg text-2xl font-semibold" data-target="status-view">Check Status &amp; Pay</button>
-            <button class="main-btn bg-amber-500 text-white p-8 rounded-2xl shadow-lg text-2xl font-semibold" data-target="help-request-view">Help</button>
+        <div id="auth-page" class="page">
+            <div class="auth-card-wrapper"> 
+                <div class="auth-card">
+                    <h1 id="auth-title">Welcome Back!</h1> 
+                    <p id="auth-subtitle">Sign in to find great deals.</p>
+                    <form id="auth-form">
+                        <p id="auth-error" class="error-message" style="display: none;"></p>
+                        <div class="form-group" id="auth-name-group"> 
+                            <label>Full Name</label>
+                            <input name="name" type="text" required=""> 
+                        </div>
+                        <div class="form-group" id="auth-mobile-group"> 
+                            <label>Mobile Number</label>
+                            <input name="mobile" type="tel" required=""> 
+                        </div>
+                        <div class="form-group" id="auth-email-group" style="display: none;"> 
+                            <label>Email (Optional)</label>
+                            <input name="email" type="email"> 
+                        </div>
+                        <button type="submit" id="auth-button" class="btn btn-primary" style="width: 100%; padding: 0.8rem;">Sign In</button>
+                    </form>
+                    <p style="text-align: center; margin-top: 1rem;"> 
+                        <span id="auth-toggle-text">Don't have an account? </span> 
+                        <span class="link" id="auth-toggle-link">Sign Up</span> 
+                    </p>
+                    <p style="text-align: center; margin-top: 1rem;">
+                        <a href="https://lovegodgl11-lang.github.io/startup-page-dms/" class="link" target="_top">Back to Home</a>
+                    </p>
+                </div> 
+            </div>
         </div>
-    </div>
-    
-    <div id="call-view" class="view flex-col items-center justify-center text-center p-8 w-full h-full">
-        <h1 id="call-title" class="text-4xl font-bold mb-4">Connecting...</h1>
-        <p id="call-subtitle" class="text-xl text-gray-400 mb-6">Please wait while we connect you to a staff member.</p>
-        <div class="relative w-full max-w-2xl aspect-video bg-black rounded-lg overflow-hidden border-4 border-gray-600">
-            <video id="local-video" autoplay="" playsinline="" muted="" class="absolute top-2 right-2 w-1/4 rounded-md z-10"></video>
-            <video id="remote-video" autoplay="" playsinline="" class="w-full h-full object-cover"></video>
-        </div>
-        <div id="payment-verification-message" class="hidden mt-4 text-lg">Please show your payment confirmation screen to the camera.</div>
-        <button id="end-call-btn" class="mt-8 bg-red-600 text-white py-3 px-8 rounded-lg font-semibold text-lg">End Call</button>
-    </div>
 
-    <div id="status-view" class="view flex-col items-center justify-center p-8 w-full h-full">
-         <h1 class="text-3xl font-bold mb-2">Check Status &amp; Pay</h1>
-         <p class="text-gray-400 mb-8">Please enter your 10-digit mobile number.</p>
-         <div class="w-full max-w-md">
-            <input type="tel" id="mobile-number-input" class="form-input block w-full px-4 py-3 border bg-gray-700 border-gray-600 rounded-md shadow-sm text-center text-3xl tracking-widest mb-4" placeholder="_ _ _ _ _  _ _ _ _ _" readonly="">
-            
-            <div id="orders-container" class="hidden mt-4">
-                <div id="order-display" class="bg-gray-800 p-4 rounded-lg min-h-[400px] flex flex-col justify-center">
-                    <!-- Single order content will be injected here -->
+        <div id="customer-app-page" class="page">
+            <header class="app-header">
+                <div class="header-content">
+                    <h1 class="logo"><a href="#" id="logo-link-main">Dump Money</a></h1>
+                    <div class="search-bar"> 
+                        <input id="search-input" type="text" placeholder="Search for products, categories, or shops..."> 
+                    </div>
+                    <div class="header-actions">
+                        <div class="wallet-info">Wallet: ₹<span id="wallet-balance">0.00</span></div>
+                        <button id="topup-wallet-btn" class="btn btn-secondary">Top-up</button>
+                        <button id="scan-and-go-btn" class="btn btn-primary">📷&nbsp;Scan &amp; Go</button>
+                        <div style="position: relative;">
+                            <button class="notification-button" id="notification-btn">🔔 <span id="notification-badge" class="badge" style="display: none;">0</span> </button>
+                            <div class="notification-dropdown" id="notification-dropdown">
+                                <div class="notification-header">Notifications</div>
+                                <div id="notification-list" class="notification-list"></div>
+                            </div>
+                        </div>
+                        <button class="cart-button" id="open-cart-button"> 🛒 <span id="cart-badge" class="badge" style="display: none;">0</span> </button>
+                        <button id="view-history-btn" class="btn btn-secondary">My History</button>
+                        <button id="customer-logout-button" class="btn" style="background-color: #6b7280; color: white;">Logout</button>
+                    </div>
                 </div>
-                <div id="pagination-controls" class="hidden flex justify-between items-center mt-4">
-                    <button id="prev-order-btn" class="bg-gray-600 text-white py-2 px-6 rounded-md font-semibold text-lg disabled:opacity-50">&lt; Prev</button>
-                    <span id="order-counter" class="text-gray-400 font-semibold"></span>
-                    <button id="next-order-btn" class="bg-gray-600 text-white py-2 px-6 rounded-md font-semibold text-lg disabled:opacity-50">Next &gt;</button>
+            </header>
+            <main class="container"> 
+                <h2 class="page-title">Available Surplus Stock</h2> 
+                <div id="product-grid-container"></div> 
+            </main>
+        </div>
+        
+        <div id="history-page" class="page">
+            <header class="app-header">
+                <div class="header-content">
+                    <h1 class="logo"><a href="#" id="logo-link-history">Dump Money</a></h1>
+                    <div class="search-bar"> 
+                        <input id="search-input-history" type="text" placeholder="Search orders or payments..."> 
+                    </div>
+                    <div class="header-actions">
+                        <div class="wallet-info">Wallet: ₹<span id="wallet-balance-history">0.00</span></div>
+                        <button id="topup-wallet-btn-history" class="btn btn-secondary">Top-up</button>
+                        <button id="scan-and-go-btn-history" class="btn btn-primary">📷&nbsp;Scan &amp; Go</button>
+                        <div style="position: relative;">
+                            <button class="notification-button" id="notification-btn-history">🔔 <span id="notification-badge-history" class="badge" style="display: none;">0</span> </button>
+                            <div class="notification-dropdown" id="notification-dropdown-history">
+                                <div class="notification-header">Notifications</div>
+                                <div id="notification-list-history" class="notification-list"></div>
+                            </div>
+                        </div>
+                        <button class="cart-button" id="open-cart-button-history"> 🛒 <span id="cart-badge-history" class="badge" style="display: none;">0</span> </button>
+                        <button id="view-deals-btn" class="btn btn-secondary">View Deals</button>
+                        <button id="customer-logout-button-history" class="btn" style="background-color: #6b7280; color: white;">Logout</button>
+                    </div>
+                </div>
+            </header>
+            <main class="container">
+                <h2 class="page-title">Order &amp; Payment History</h2>
+                <div class="history-tabs">
+                    <div class="history-tab active" data-tab="orders">Orders</div>
+                    <div class="history-tab" data-tab="payments">Payments</div>
+                    <div class="history-tab" data-tab="wallet">Wallet Ledger</div>
+                </div>
+                <div id="orders-content" class="history-content active">
+                    <div id="orders-list" class="history-list-container"></div>
+                </div>
+                <div id="payments-content" class="history-content">
+                    <div id="payments-list" class="history-list-container"></div>
+                </div>
+                <div id="wallet-content" class="history-content">
+                    <div id="wallet-ledger-list" class="history-list-container"></div>
+                </div>
+            </main>
+        </div>
+        
+        <div id="cart-modal" class="modal-overlay">
+            <div id="cart-modal-content" class="modal-content">
+                <div class="modal-header"> 
+                    <h2>Your Cart</h2> 
+                    <button id="close-cart-button" class="btn-close">×</button> 
+                </div>
+                <div id="cart-items-container" class="cart-items"></div>
+                <div class="promo-section">
+                    <div style="display: flex; gap: 0.5rem;">
+                        <input type="text" id="promo-code-input" placeholder="Enter Promo Code" style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: var(--border-radius);">
+                        <button id="apply-promo-btn" class="btn btn-secondary" style="width: auto; white-space: nowrap;">Apply</button>
+                    </div>
+                    <p id="promo-feedback"></p>
+                </div>
+                <div id="cart-summary-container" class="cart-summary" style="display: none;"></div>
+            </div>
+        </div>
+        
+        <div id="topup-modal" class="modal-overlay">
+            <div class="modal-content">
+                <div class="modal-header"> 
+                    <h2>Top-up Wallet</h2> 
+                    <button id="close-topup-modal" class="btn-close">×</button> 
+                </div>
+                <form id="topup-form">
+                    <div class="modal-body">
+                        <p>Scan the QR code or use the UPI ID to pay. Then, enter the amount and upload the payment screenshot.</p>
+                        <div id="payment-details-loading">Loading payment details...</div>
+                        <div id="payment-details-content" style="display:none;">
+                            <div id="qr-code-container"><img id="qr-code-img" src="" alt="UPI QR Code"></div>
+                            <p class="upi-id" id="upi-id-text"></p>
+                            <a href="#" id="download-qr-btn" class="btn btn-secondary" style="width: 100%; margin-top: 1rem;" download="dms-qr-code.png">Download QR Code</a>
+                        </div>
+                        <div class="form-group" style="margin-top: 1rem;">
+                            <label for="topup-amount">Amount (Min: ₹50, Max: ₹5000)</label>
+                            <input type="number" id="topup-amount" name="amount" min="50" max="5000" required="">
+                        </div>
+                        <div class="form-group">
+                            <label for="payment-screenshot">Upload Screenshot</label>
+                            <input type="file" id="payment-screenshot" name="screenshot" accept="image/*" required="">
+                            <img id="screenshot-preview" src="#" alt="Screenshot Preview" style="display:none; max-width: 100%; margin-top: 1rem; border-radius: 0.5rem;">
+                        </div>
+                        <p id="topup-error" class="error-message" style="display:none;"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="cancel-topup-btn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Submit Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="scan-modal" class="modal-overlay">
+            <div class="modal-content" style="max-width: 500px;">
+                <div class="modal-header">
+                    <h2>Scan Product QR Code</h2>
+                    <button id="close-scan-modal" class="btn-close">×</button>
+                </div>
+                <div class="modal-body">
+                    <div id="qr-reader" style="width: 100%; border: 1px solid var(--border-color); border-radius: var(--border-radius);"></div>
+                    <p style="text-align: center; margin: 1rem 0; color: var(--text-light);">or</p>
+                    <div id="manual-entry-section">
+                        <div class="form-group">
+                            <label for="manual-item-id">Enter Item ID or Short Code</label>
+                            <input type="text" id="manual-item-id" style="width: 100%; padding: 0.75rem 1rem; border-radius: var(--border-radius); border: 1px solid var(--border-color); font-size: 1rem;">
+                        </div>
+                        <button id="find-item-manual-btn" class="btn btn-primary" style="width: 100%;">Find Item</button>
+                    </div>
                 </div>
             </div>
-
-            <button id="back-to-menu-status" class="mt-6 w-full bg-gray-600 text-white py-3 px-4 rounded-md font-semibold text-lg">Back to Menu</button>
-         </div>
-    </div>
-
-    <!-- NEW ORDER VIEW -->
-    <div id="new-order-view" class="view flex-col items-center justify-center p-8 w-full h-full">
-        <h1 class="text-3xl font-bold mb-2">New Order Request</h1>
-        <p class="text-gray-400 mb-8">Please fill in your details below.</p>
-        <div class="w-full max-w-md space-y-4">
-            <input type="text" id="new-order-name" class="form-input block w-full px-4 py-3 border bg-gray-700 border-gray-600 rounded-md shadow-sm text-center text-2xl" placeholder="Your Name" readonly="">
-            <input type="tel" id="new-order-mobile" class="form-input block w-full px-4 py-3 border bg-gray-700 border-gray-600 rounded-md shadow-sm text-center text-2xl" placeholder="Your Mobile Number" readonly="">
-            <textarea id="new-order-description" class="form-input block w-full px-4 py-3 border bg-gray-700 border-gray-600 rounded-md shadow-sm text-center text-2xl" placeholder="Describe your order (e.g., 2 suits, 1 shirt)" rows="3" readonly=""></textarea>
-            
-            <button id="submit-order-request-btn" class="w-full bg-indigo-600 text-white py-3 px-4 rounded-md font-semibold text-lg">Submit Request</button>
-            <button id="back-to-menu-order" class="mt-2 w-full bg-gray-600 text-white py-3 px-4 rounded-md font-semibold text-lg">Back to Menu</button>
         </div>
-    </div>
 
-    <!-- NEW HELP REQUEST VIEW -->
-    <div id="help-request-view" class="view flex-col items-center justify-center p-8 w-full h-full">
-        <h1 class="text-3xl font-bold mb-2">Request Help</h1>
-        <p class="text-gray-400 mb-8">Please enter your details to start a video call.</p>
-        <div class="w-full max-w-md space-y-4">
-            <input type="text" id="help-name" class="form-input block w-full px-4 py-3 border bg-gray-700 border-gray-600 rounded-md shadow-sm text-center text-2xl" placeholder="Your Name" readonly="">
-            <input type="tel" id="help-mobile" class="form-input block w-full px-4 py-3 border bg-gray-700 border-gray-600 rounded-md shadow-sm text-center text-2xl" placeholder="Your Mobile Number" readonly="">
-            
-            <button id="request-video-call-btn" class="w-full bg-amber-600 text-white py-3 px-4 rounded-md font-semibold text-lg">Request Video Call</button>
-            <button id="back-to-menu-help" class="mt-2 w-full bg-gray-600 text-white py-3 px-4 rounded-md font-semibold text-lg">Back to Menu</button>
+        <div id="item-details-modal" class="modal-overlay">
+            <div class="modal-content" style="max-width: 400px;">
+                <div class="modal-header">
+                    <h2>Product Details</h2>
+                    <button id="close-item-details-modal" class="btn-close">×</button>
+                </div>
+                <div class="modal-body" id="item-details-body"></div>
+                <div class="modal-footer" id="item-details-footer" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;"></div>
+            </div>
         </div>
-    </div>
+        
+        <div id="wallet-payment-modal" class="modal-overlay">
+           <div class="modal-content" style="max-width: 400px;">
+               <div class="modal-header">
+                   <h2>Pay with Wallet</h2>
+                   <button id="close-wallet-payment-modal" class="btn-close">×</button>
+               </div>
+               <div class="modal-body">
+                   <p>You are paying to: <strong id="payment-shop-name"></strong></p>
+                   <p>Your wallet balance: <strong>₹<span id="payment-wallet-balance"></span></strong></p>
+                   <div class="form-group" style="margin-top: 1.5rem;">
+                       <label for="payment-amount">Amount to Pay (₹)</label>
+                       <input type="number" id="payment-amount" style="font-size: 2rem; text-align: center; padding: 0.5rem;" min="1" step="0.01" required="">
+                   </div>
+                   <p id="payment-error" class="error-message" style="display:none;"></p>
+               </div>
+               <div class="modal-footer">
+                   <button id="confirm-payment-btn" class="btn btn-primary" style="width: 100%;">Pay Now</button>
+               </div>
+           </div>
+        </div>
 
-    <!-- Virtual Keyboard -->
-    <div id="virtual-keyboard" class="virtual-keyboard"></div>
-    
-    <!-- Hidden elements for security capture -->
-    <div style="position: absolute; top: -9999px; left: -9999px;">
-        <video id="security-video" width="640" height="480" autoplay="" playsinline=""></video>
-        <canvas id="security-canvas" width="640" height="480"></canvas>
+        <div id="delivery-options-modal" class="modal-overlay">
+            <div class="modal-content" style="max-width: 500px;">
+                <div class="modal-header">
+                    <h2>Confirm Order</h2>
+                    <button id="close-delivery-modal" class="btn-close">×</button>
+                </div>
+                <div class="modal-body">
+                    <h4>Select Delivery Method</h4>
+                    <div id="delivery-method-selector" style="margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem;">
+                        <label style="display: flex; align-items: center; gap: 1rem; padding: 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius);">
+                            <input type="radio" name="delivery-option" value="pickup" checked="">
+                            <div>
+                                <strong>In-Store Pickup</strong>
+                                <p style="font-size: 0.875rem; color: var(--text-light);">Collect your order directly from the shop.</p>
+                            </div>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 1rem; padding: 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius);">
+                            <input type="radio" name="delivery-option" value="delivery">
+                             <div>
+                                <strong>Home Delivery</strong>
+                                <p style="font-size: 0.875rem; color: var(--text-light);">Get your order delivered to your doorstep.</p>
+                            </div>
+                        </label>
+                    </div>
+                    <div id="delivery-address-container" style="display: none; margin-top: 1.5rem;">
+                        <div class="form-group">
+                            <label for="delivery-address">Enter Your Full Delivery Address</label>
+                            <textarea id="delivery-address" rows="3" style="width: 100%; padding: 0.75rem 1rem; border-radius: var(--border-radius); border: 1px solid var(--border-color);" placeholder="e.g., House No. 123, Street 4, City, State - Pincode"></textarea>
+                        </div>
+                    </div>
+                     <div id="final-summary" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);"></div>
+                </div>
+                <div class="modal-footer">
+                    <button id="confirm-and-pay-btn" class="btn btn-primary">Confirm &amp; Pay</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Cart Popup -->
+        <div id="mobile-cart-popup" class="mobile-cart-popup">
+            <div class="mobile-cart-header">
+                <h3>Your Cart</h3>
+                <button class="close-cart-btn">×</button>
+            </div>
+            <div class="mobile-cart-items">
+                <!-- Cart items will be added here dynamically -->
+            </div>
+            <div class="mobile-cart-footer">
+                <div class="cart-total">
+                    <span>Total: ₹<span id="mobile-cart-total">0.00</span></span>
+                </div>
+                <button id="proceed-to-checkout" class="btn btn-primary">Proceed to Checkout</button>
+            </div>
+        </div>
+
+        <!-- Cart Overlay -->
+        <div class="cart-overlay"></div>
+
+        <!-- Bill Receipt Modal -->
+        <div id="bill-receipt-modal" class="modal-overlay">
+            <div class="modal-content" style="max-width: 400px;">
+                <div class="modal-header">
+                    <h2>Order Receipt</h2>
+                    <button id="close-receipt-modal" class="btn-close">×</button>
+                </div>
+                <div class="modal-body">
+                    <div id="receipt-content"></div>
+                    <div style="margin-top: 20px; text-align: center;">
+                        <button id="download-receipt" class="btn btn-primary">Download Receipt</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script type="module">
-        // --- Firebase Config ---
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
+        import { getFirestore, doc, setDoc, getDoc, collection, getDocs, serverTimestamp, runTransaction, onSnapshot, addDoc, query, where, updateDoc } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+
         const firebaseConfig = {
-            apiKey: "AIzaSyC0_DQIiyaVQllFH4pxH1Dm3r2kFXXoOgc",
-            authDomain: "navrosetailorapp.firebaseapp.com",
-            databaseURL: "https://navrosetailorapp-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "navrosetailorapp"
-        };
-        
-        // --- App State & Elements ---
-        let db, recognition, kioskId, peerConnection, localStream, remoteStream, kioskLiveRef, currentOrderToVerify = null, currentCallLogKey = null;
-        let isKeyboardVisible = false, currentInput = null;
-        let paymentSettings = {};
-        let customerOrdersCache = [];
-        let currentOrderIndex = 0;
-
-        // Security Feature State
-        let clickTimestamps = [];
-        const MISUSE_CLICK_THRESHOLD = 15; // 15 clicks
-        const MISUSE_TIME_WINDOW_MS = 5000; // within 5 seconds
-        let isCaptureInProgress = false;
-
-        const views = {
-            idle: document.getElementById('idle-view'),
-            menu: document.getElementById('menu-view'),
-            status: document.getElementById('status-view'),
-            call: document.getElementById('call-view'),
-            newOrder: document.getElementById('new-order-view'),
-            helpRequest: document.getElementById('help-request-view'),
+            apiKey: "AIzaSyA2yF3_AdR-GFhkJudVQn5nMj2tjq7uRsA",
+            authDomain: "dump-money-cfd01.firebaseapp.com",
+            databaseURL: "https://dump-money-cfd01-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "dump-money-cfd01",
+            storageBucket: "dump-money-cfd01.appspot.com",
+            messagingSenderId: "589708288715",
+            appId: "1:589708288715:web:1031ab4eb2a767bf92314e",
+            measurementId: "G-8JPWPL06C0"
         };
 
-        // --- Core Functions ---
-        function switchView(viewName) {
-            Object.values(views).forEach(v => v.classList.remove('active'));
-            if (views[viewName]) views[viewName].classList.add('active');
-        }
-
-        function speak(text, onEndCallback) {
-            speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'en-IN';
-            utterance.onend = onEndCallback;
-            speechSynthesis.speak(utterance);
-        }
-
-        // --- Virtual Keyboard ---
-        function createKeyboard() {
-            const keyboardContainer = document.getElementById('virtual-keyboard');
-            const keys = [
-                ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
-                ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
-                ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
-                ['z', 'x', 'c', 'v', 'b', 'n', 'm', 'Backspace'],
-                ['Space', 'Enter']
-            ];
-            let html = '';
-            keys.forEach(row => {
-                html += '<div class="keyboard-row">';
-                row.forEach(key => {
-                    let specialClass = '';
-                    if (['Backspace', 'Enter', 'Space'].includes(key)) specialClass = 'key-special';
-                    html += `<button class="keyboard-key ${specialClass}" data-key="${key}">${key === 'Space' ? ' ' : key}</button>`;
-                });
-                html += '</div>';
-            });
-            keyboardContainer.innerHTML = html;
-        }
-
-        function showKeyboard(inputElement) {
-            currentInput = inputElement;
-            document.getElementById('virtual-keyboard').style.display = 'block';
-            isKeyboardVisible = true;
-        }
-
-        function hideKeyboard() {
-            document.getElementById('virtual-keyboard').style.display = 'none';
-            isKeyboardVisible = false;
-            currentInput = null;
-        }
-
-        // --- WebRTC Logic ---
-        const rtcConfig = { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] };
-
-        async function startCall(callType, callDetails = {}) {
-            currentOrderToVerify = callDetails.orderInfo || null;
-            switchView('call');
-
-            let title, status, callLogType;
-            if (callType === 'help') {
-                title = 'Requesting Help';
-                status = 'help_requested';
-                callLogType = 'Help Request';
-            } else { // 'payment'
-                title = 'Payment Verification';
-                status = 'payment_verification_pending';
-                callLogType = 'Payment Verification';
-            }
-            
-            const kioskInfo = { name: "Kiosk 1" };
-
-            // Create call log entry
-            const callLogRef = db.ref('kiosk/callLogs').push();
-            currentCallLogKey = callLogRef.key;
-            const logData = {
-                key: currentCallLogKey,
-                kioskId: kioskId,
-                kioskName: kioskInfo.name,
-                callType: callLogType,
-                orderInfo: callDetails.orderInfo || null,
-                customerInfo: callDetails.customerInfo || null,
-                initiatedAt: firebase.database.ServerValue.TIMESTAMP,
-                status: 'ringing',
-                adminSaw: false
-            };
-            await callLogRef.set(logData);
-
-            document.getElementById('call-title').textContent = title;
-            document.getElementById('call-subtitle').textContent = 'Connecting to staff...';
-            document.getElementById('payment-verification-message').classList.toggle('hidden', callType !== 'payment');
-
-            try {
-                localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-                document.getElementById('local-video').srcObject = localStream;
-
-                peerConnection = new RTCPeerConnection(rtcConfig);
-                localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
-
-                peerConnection.ontrack = event => {
-                    document.getElementById('remote-video').srcObject = event.streams[0];
-                };
-
-                const offerCandidates = [];
-                peerConnection.onicecandidate = event => {
-                    if (event.candidate) {
-                        kioskLiveRef.child('webrtc/kioskCandidates').push(event.candidate.toJSON());
-                    }
-                };
-                
-                kioskLiveRef.child('webrtc/adminCandidates').on('child_added', snapshot => {
-                    if(!snapshot.exists()) return;
-                    const candidate = new RTCIceCandidate(snapshot.val());
-                    peerConnection.addIceCandidate(candidate).catch(e => console.error("Error adding ICE candidate", e));
-                });
-
-                const offer = await peerConnection.createOffer();
-                await peerConnection.setLocalDescription(offer);
-
-                kioskLiveRef.set({
-                    status: status,
-                    kioskInfo: kioskInfo,
-                    orderInfo: callDetails.orderInfo || null,
-                    customerInfo: callDetails.customerInfo || null,
-                    timestamp: firebase.database.ServerValue.TIMESTAMP,
-                    webrtc: { offer: { sdp: offer.sdp, type: offer.type } }
-                });
-                
-                kioskLiveRef.child('webrtc/answer').on('value', async snapshot => {
-                    if (snapshot.exists() && !peerConnection.currentRemoteDescription) {
-                        await peerConnection.setRemoteDescription(snapshot.val());
-                        kioskLiveRef.update({ status: 'in_call' });
-                        if (currentCallLogKey) {
-                            db.ref(`kiosk/callLogs/${currentCallLogKey}`).update({ status: 'answered', answeredAt: firebase.database.ServerValue.TIMESTAMP });
-                        }
-                        document.getElementById('call-title').textContent = 'Connected';
-                        document.getElementById('call-subtitle').textContent = 'You are now speaking with a staff member.';
-                    }
-                });
-
-            } catch (error) {
-                console.error("Call failed to start:", error);
-                document.getElementById('call-title').textContent = 'Connection Failed';
-                document.getElementById('call-subtitle').textContent = 'Could not access camera/microphone. Please allow permissions.';
-            }
-        }
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
         
-        function endCall() {
-            if (peerConnection) {
-                peerConnection.close();
-                peerConnection = null;
-            }
-            if (localStream) {
-                localStream.getTracks().forEach(track => track.stop());
-                localStream = null;
-            }
-            if (currentCallLogKey) {
-                const logRef = db.ref(`kiosk/callLogs/${currentCallLogKey}`);
-                logRef.child('status').once('value', statusSnapshot => {
-                    if (statusSnapshot.val() === 'ringing') {
-                        logRef.update({ 
-                            status: 'cancelled_by_customer',
-                            completedAt: firebase.database.ServerValue.TIMESTAMP
-                        });
-                    } else if (statusSnapshot.val() === 'answered') {
-                        logRef.update({
-                            status: 'completed',
-                            completedAt: firebase.database.ServerValue.TIMESTAMP
-                        });
-                    }
-                });
-                currentCallLogKey = null;
-            }
-            if(kioskLiveRef) {
-                kioskLiveRef.remove();
-            }
-            
-            document.getElementById('local-video').srcObject = null;
-            document.getElementById('remote-video').srcObject = null;
-            currentOrderToVerify = null;
-            switchView('menu');
-        }
+        let currentUser = null;
+        let products = [];
+        let cart = [];
+        let appliedPromo = null;
+        let customerUnsubscribe = null;
+        let notificationUnsubscribe = null;
+        let shopsMap = new Map();
+        let orders = [];
+        let payments = [];
 
-        // --- NEW ORDER FORM LOGIC ---
-        function resetNewOrderForm() {
-            document.getElementById('new-order-name').value = '';
-            document.getElementById('new-order-mobile').value = '';
-            document.getElementById('new-order-description').value = '';
-        }
+        const pages = document.querySelectorAll('.page');
+        const showPage = (pageId) => pages.forEach(p => p.classList.toggle('active', p.id === pageId));
 
-        async function submitOrderRequest() {
-            const name = document.getElementById('new-order-name').value.trim();
-            const mobile = document.getElementById('new-order-mobile').value.trim();
-            const description = document.getElementById('new-order-description').value.trim();
-
-            if (!name || !mobile || !description) {
-                speak("Please fill out all the fields.");
-                alert("Please fill out all the fields.");
-                return;
-            }
-
-            if (!/^\d{10}$/.test(mobile)) {
-                speak("Please enter a valid 10-digit mobile number.");
-                alert("Please enter a valid 10-digit mobile number.");
-                return;
-            }
-
-            hideKeyboard();
-
-            const requestData = {
-                customerName: name,
-                customerMobile: mobile,
-                description: description,
-                status: 'pending',
-                kioskId: kioskId,
-                timestamp: firebase.database.ServerValue.TIMESTAMP
-            };
-
-            try {
-                await db.ref('kiosk/orderRequests').push(requestData);
-                speak("Your request has been submitted successfully. A staff member will call your name shortly.");
-                alert("Request submitted! A staff member will be with you shortly.");
-                resetNewOrderForm();
-                switchView('menu');
-            } catch (error) {
-                console.error("Failed to submit order request:", error);
-                speak("Sorry, there was an error submitting your request. Please try again or seek help.");
-                alert("Sorry, there was an error submitting your request. Please try again.");
-            }
-        }
+        const productGridContainer = document.getElementById('product-grid-container');
+        const walletBalanceEl = document.getElementById('wallet-balance');
+        const cartBadgeEl = document.getElementById('cart-badge');
+        const cartModal = document.getElementById('cart-modal');
+        const topupModal = document.getElementById('topup-modal');
+        const deliveryOptionsModal = document.getElementById('delivery-options-modal');
         
-        // --- HELP REQUEST FORM LOGIC ---
-        function resetHelpRequestForm() {
-            document.getElementById('help-name').value = '';
-            document.getElementById('help-mobile').value = '';
-        }
+        const scanModal = document.getElementById('scan-modal');
+        const itemDetailsModal = document.getElementById('item-details-modal');
+        const walletPaymentModal = document.getElementById('wallet-payment-modal');
+        let html5QrCode = null;
+        let currentScannedProductId = null;
 
-        async function submitHelpRequest() {
-            const name = document.getElementById('help-name').value.trim();
-            const mobile = document.getElementById('help-mobile').value.trim();
+        // Mobile Cart Popup Elements
+        const mobileCartPopup = document.getElementById('mobile-cart-popup');
+        const cartOverlay = document.querySelector('.cart-overlay');
+        const billReceiptModal = document.getElementById('bill-receipt-modal');
 
-            if (!name || !mobile) {
-                speak("Please fill out your name and mobile number.");
-                alert("Please fill out your name and mobile number.");
-                return;
-            }
-            if (!/^\d{10}$/.test(mobile)) {
-                speak("Please enter a valid 10-digit mobile number.");
-                alert("Please enter a valid 10-digit mobile number.");
-                return;
-            }
+        // History page elements
+        const ordersList = document.getElementById('orders-list');
+        const paymentsList = document.getElementById('payments-list');
+        const historyTabs = document.querySelectorAll('.history-tab');
 
-            hideKeyboard();
-            startCall('help', { customerInfo: { customerName: name, customerMobile: mobile } });
-        }
-        
-        // --- SECURITY & ACTIVITY CAPTURE LOGIC ---
-        async function captureLoginPhoto() {
-            const videoEl = document.getElementById('security-video');
-            const canvasEl = document.getElementById('security-canvas');
-            
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
-                videoEl.srcObject = stream;
+        const handleFoundProduct = (productId) => {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                currentScannedProductId = productId;
+                const itemDetailsBody = document.getElementById('item-details-body');
+                const itemDetailsFooter = document.getElementById('item-details-footer');
+                const finalPrice = product.price - (product.discount || 0);
 
-                await new Promise(resolve => setTimeout(resolve, 500)); // Wait for camera to adjust
-
-                const context = canvasEl.getContext('2d');
-                context.drawImage(videoEl, 0, 0, canvasEl.width, canvasEl.height);
-                const imageData = canvasEl.toDataURL('image/jpeg', 0.7);
-                
-                stream.getTracks().forEach(track => track.stop());
-                videoEl.srcObject = null;
-
-                const activityData = {
-                    kioskId: kioskId,
-                    timestamp: firebase.database.ServerValue.TIMESTAMP,
-                    imageData: imageData,
-                };
-                await db.ref('kiosk/loginActivity').push(activityData);
-                console.log("Login photo captured and sent.");
-
-            } catch (error) {
-                console.error("Could not capture login photo:", error);
-                // Fail silently but log the error for admin
-                await db.ref('kiosk/loginActivity').push({
-                    kioskId: kioskId,
-                    timestamp: firebase.database.ServerValue.TIMESTAMP,
-                    error: 'Camera capture failed: ' + error.message,
-                });
-            }
-        }
-
-        async function triggerSecurityCapture() {
-            if (isCaptureInProgress) return;
-            isCaptureInProgress = true;
-            console.log("Misuse detected. Triggering security capture.");
-
-            try {
-                const videoEl = document.getElementById('security-video');
-                const canvasEl = document.getElementById('security-canvas');
-                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
-                videoEl.srcObject = stream;
-
-                // Wait a moment for the camera to adjust
-                await new Promise(resolve => setTimeout(resolve, 500));
-
-                const context = canvasEl.getContext('2d');
-                context.drawImage(videoEl, 0, 0, canvasEl.width, canvasEl.height);
-                const imageData = canvasEl.toDataURL('image/jpeg', 0.7);
-                
-                // Stop the camera stream immediately
-                stream.getTracks().forEach(track => track.stop());
-                videoEl.srcObject = null;
-
-                // Send to Firebase
-                const alertData = {
-                    kioskId: kioskId,
-                    timestamp: firebase.database.ServerValue.TIMESTAMP,
-                    imageData: imageData,
-                    reason: 'Rapid clicking detected',
-                    acknowledged: false
-                };
-                await db.ref('kiosk/securityAlerts').push(alertData);
-                console.log("Security alert sent to admin.");
-                speak("Please use the kiosk gently.", null);
-
-            } catch (error) {
-                console.error("Could not capture security image:", error);
-                // Send an alert without an image if camera fails
-                await db.ref('kiosk/securityAlerts').push({
-                    kioskId: kioskId,
-                    timestamp: firebase.database.ServerValue.TIMESTAMP,
-                    reason: 'Rapid clicking detected (camera failed)',
-                    acknowledged: false
-                });
-            } finally {
-                // Add a cool-down period before another capture can be triggered
-                setTimeout(() => { isCaptureInProgress = false; }, 10000);
-            }
-        }
-
-        function handleGlobalClick(e) {
-            const now = Date.now();
-            clickTimestamps.push(now);
-            
-            // Filter out clicks older than the time window
-            clickTimestamps = clickTimestamps.filter(ts => now - ts < MISUSE_TIME_WINDOW_MS);
-            
-            if (clickTimestamps.length >= MISUSE_CLICK_THRESHOLD) {
-                triggerSecurityCapture();
-                clickTimestamps = []; // Reset after triggering
-            }
-        }
-        
-        // --- App Logic ---
-        function renderPaginatedOrder() {
-            const orderDisplay = document.getElementById('order-display');
-            const paginationControls = document.getElementById('pagination-controls');
-            const orderCounter = document.getElementById('order-counter');
-            const prevBtn = document.getElementById('prev-order-btn');
-            const nextBtn = document.getElementById('next-order-btn');
-
-            if (customerOrdersCache.length === 0) {
-                orderDisplay.innerHTML = '<p class="text-center text-gray-300">No orders found for this number.</p>';
-                paginationControls.classList.add('hidden');
-                return;
-            }
-
-            // Show pagination if more than one order
-            if (customerOrdersCache.length > 1) {
-                paginationControls.classList.remove('hidden');
-                orderCounter.textContent = `Order ${currentOrderIndex + 1} of ${customerOrdersCache.length}`;
-                prevBtn.disabled = currentOrderIndex === 0;
-                nextBtn.disabled = currentOrderIndex === customerOrdersCache.length - 1;
-            } else {
-                paginationControls.classList.add('hidden');
-            }
-
-            const order = customerOrdersCache[currentOrderIndex];
-            const totalCharges = order.type === 'stitching' ? (order.items || []).reduce((s, i) => s + (parseFloat(i.charges) || 0), 0) : (parseFloat(order.charges) || 0);
-            const received = order.receivedPayment || 0;
-            const balance = totalCharges - received;
-            
-            const upiId = paymentSettings.upiId || 'navrose.stitching@okhdfcbank';
-            const upiLink = `upi://pay?pa=${upiId}&pn=Navrose%20Stitching%20Point&am=${balance.toFixed(2)}`;
-            const qrImageHtml = paymentSettings.qrCodeBase64 
-                ? `<img src="${paymentSettings.qrCodeBase64}" class="mx-auto rounded-lg bg-white p-1 w-40 h-40 object-contain">
-                   <p class="text-xs text-center mt-1 text-gray-300">Please enter amount ₹${balance.toFixed(2)} manually.</p>`
-                : `<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(upiLink)}" class="mx-auto rounded-lg bg-white p-1">`;
-
-            const orderHTML = `
-                <div class="bg-gray-700 p-4 rounded-lg">
-                    <div class="flex justify-between items-center">
-                        <p class="font-bold">Order #${order.orderNumber}</p>
-                        <span class="text-sm font-semibold px-2 py-1 rounded-full ${order.status === 'Completed' ? 'bg-green-200 text-green-800' : 'bg-yellow-200 text-yellow-800'}">${order.status}</span>
+                itemDetailsBody.innerHTML = `
+                    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">${product.name}</h3>
+                    ${ (product.rackNo || product.rowNo) ? `
+                    <div class="product-location">
+                        📍 Find at: Rack ${product.rackNo || 'N/A'}, Row ${product.rowNo || 'N/A'}
+                    </div>` : ''}
+                    <p style="margin-bottom: 1rem;">${product.description || 'No description available.'}</p>
+                    <div style="text-align: right;">
+                        ${(product.discount > 0) ? `<span class="original-price" style="font-size: 1.2rem;">₹${product.price.toFixed(2)}</span>` : ''}
+                        <p style="font-size: 1.75rem; font-weight: 700; color: var(--primary-color);">₹${finalPrice.toFixed(2)}</p>
                     </div>
-                    <p class="text-sm text-gray-400">Balance: <span class="font-bold ${balance > 0 ? 'text-red-400' : 'text-green-400'}">₹${balance.toFixed(2)}</span></p>
-                    ${balance > 0 ? `<div class="mt-3">
-                        ${qrImageHtml}
-                        <button class="verify-payment-btn w-full mt-3 bg-blue-600 text-white py-2 rounded-md font-semibold" data-order-id="${order.id || ''}" data-firebase-key="${order.firebaseKey}" data-order-number="${order.orderNumber}">I Have Paid, Verify Now</button>
-                    </div>` : '<p class="text-center mt-8 font-semibold text-green-400">This order is fully paid. Thank you!</p>'}
+                `;
+
+                itemDetailsFooter.innerHTML = `
+                    <button id="add-scanned-to-cart-btn" class="btn btn-primary" style="width:100%; grid-column: 1 / -1;">Add to Cart</button>
+                    <button id="scan-another-btn" class="btn btn-secondary" style="width:100%;">Scan Another</button>
+                    <button id="close-scanned-item-details-btn" class="btn btn-secondary" style="width:100%;">Close</button>
+                `;
+                
+                itemDetailsModal.classList.add('active');
+
+            } else {
+                alert("Product not found. The QR code may be invalid or the item might be out of stock.");
+            }
+        };
+
+        const initiateWalletPayment = async (shopMobile) => {
+            try {
+                const q = query(collection(db, 'shops'), where('mobile', '==', shopMobile));
+                const snapshot = await getDocs(q);
+                if (snapshot.empty) {
+                    throw new Error("Shop not found. This QR code is invalid.");
+                }
+                const shopDoc = snapshot.docs[0];
+                const shopData = { id: shopDoc.id, ...shopDoc.data() };
+                
+                document.getElementById('payment-shop-name').textContent = shopData.shopName;
+                document.getElementById('payment-wallet-balance').textContent = (currentUser.wallet || 0).toFixed(2);
+                document.getElementById('payment-amount').value = '';
+                document.getElementById('payment-error').style.display = 'none';
+
+                const confirmBtn = document.getElementById('confirm-payment-btn');
+                confirmBtn.onclick = () => processWalletPayment(shopData);
+
+                walletPaymentModal.classList.add('active');
+            } catch (error) {
+                alert(`Error: ${error.message}`);
+            }
+        };
+
+        const onScanSuccess = (decodedText, decodedResult) => {
+            if (html5QrCode && html5QrCode.isScanning) {
+                html5QrCode.stop().then(() => {
+                    scanModal.classList.remove('active');
+                    if (decodedText.startsWith('dms_payment_v1::')) {
+                        const shopMobile = decodedText.split('::')[1];
+                        initiateWalletPayment(shopMobile);
+                    } else {
+                        handleFoundProduct(decodedText);
+                    }
+                }).catch(err => console.error("Failed to stop scanner", err));
+            }
+        };
+        
+        const processWalletPayment = async (shopData) => {
+            const amountInput = document.getElementById('payment-amount');
+            const amount = parseFloat(amountInput.value);
+            const errorEl = document.getElementById('payment-error');
+            const payBtn = document.getElementById('confirm-payment-btn');
+
+            errorEl.style.display = 'none';
+
+            if (isNaN(amount) || amount <= 0) {
+                errorEl.textContent = "Please enter a valid amount.";
+                errorEl.style.display = 'block';
+                return;
+            }
+            if (amount > currentUser.wallet) {
+                errorEl.textContent = "Insufficient wallet balance.";
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            payBtn.disabled = true;
+            payBtn.textContent = 'Processing...';
+
+            try {
+                await runTransaction(db, async (transaction) => {
+                    const customerRef = doc(db, 'customers', currentUser.id);
+                    const shopRef = doc(db, 'shops', shopData.id);
+
+                    const [customerDoc, shopDoc] = await Promise.all([
+                        transaction.get(customerRef),
+                        transaction.get(shopRef)
+                    ]);
+
+                    if (!customerDoc.exists()) throw new Error("Your account was not found.");
+                    if (!shopDoc.exists()) throw new Error("The shop's account was not found.");
+
+                    const customerWallet = customerDoc.data().wallet || 0;
+                    if (customerWallet < amount) throw new Error("Your balance is not enough for this transaction.");
+                    
+                    const newCustomerWallet = customerWallet - amount;
+                    const newShopWallet = (shopDoc.data().wallet || 0) + amount;
+
+                    transaction.update(customerRef, { wallet: newCustomerWallet });
+                    transaction.update(shopRef, { wallet: newShopWallet });
+
+                    const transactionLogRef = doc(collection(db, 'walletTransactions'));
+                    transaction.set(transactionLogRef, {
+                        amount: amount,
+                        fromId: currentUser.id,
+                        fromName: currentUser.name,
+                        toId: shopData.id,
+                        toName: shopData.shopName,
+                        type: 'CUSTOMER_TO_SHOP',
+                        timestamp: serverTimestamp()
+                    });
+                });
+                
+                alert(`Successfully paid ₹${amount.toFixed(2)} to ${shopData.shopName}!`);
+                walletPaymentModal.classList.remove('active');
+
+            } catch (error) {
+                console.error("Payment failed:", error);
+                errorEl.textContent = `Payment failed: ${error.message}`;
+                errorEl.style.display = 'block';
+            } finally {
+                payBtn.disabled = false;
+                payBtn.textContent = 'Pay Now';
+            }
+        };
+
+        const startScanner = () => {
+            if (!html5QrCode) {
+                html5QrCode = new Html5Qrcode("qr-reader");
+            }
+            
+            Html5Qrcode.getCameras().then(cameras => {
+                if (cameras && cameras.length) {
+                    scanModal.classList.add('active');
+                    const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+                    html5QrCode.start(
+                        { facingMode: "environment" },
+                        config,
+                        onScanSuccess,
+                        (errorMessage) => { /* ignore errors */ }
+                    ).catch(err => {
+                        alert(`Unable to start scanning, please grant camera permissions.`);
+                        scanModal.classList.remove('active');
+                    });
+                } else {
+                    alert("No cameras found on this device.");
+                }
+            }).catch(err => {
+                alert("Could not get camera permissions. Please allow camera access in your browser settings.");
+            });
+        };
+
+        const setupUserSession = (userData) => {
+            if (customerUnsubscribe) customerUnsubscribe();
+            if (notificationUnsubscribe) notificationUnsubscribe();
+
+            const customerDocRef = doc(db, 'customers', userData.id);
+            customerUnsubscribe = onSnapshot(customerDocRef, (docSnap) => {
+                if (docSnap.exists()) {
+                    currentUser = { id: docSnap.id, ...docSnap.data() };
+                    walletBalanceEl.textContent = (currentUser.wallet || 0).toFixed(2);
+                    document.getElementById('wallet-balance-history').textContent = (currentUser.wallet || 0).toFixed(2);
+                } else {
+                    handleLogout(); // Customer doc deleted
+                }
+            }, (error) => {
+                console.error("Customer data listener failed:", error);
+                handleLogout();
+            });
+
+            const notificationsQuery = query(collection(db, "notifications"), where("customerId", "==", userData.id));
+            notificationUnsubscribe = onSnapshot(notificationsQuery, (querySnapshot) => {
+                const notifications = [];
+                querySnapshot.forEach((doc) => notifications.push({id: doc.id, ...doc.data()}));
+                renderNotifications(notifications);
+            }, (error) => {
+                console.error("Notifications listener failed:", error);
+            });
+
+            currentUser = userData;
+            walletBalanceEl.textContent = (currentUser.wallet || 0).toFixed(2);
+            document.getElementById('wallet-balance-history').textContent = (currentUser.wallet || 0).toFixed(2);
+            showPage('customer-app-page');
+            if (products.length === 0) fetchProducts();
+        };
+
+        const handleLogout = () => {
+            if (customerUnsubscribe) customerUnsubscribe();
+            if (notificationUnsubscribe) notificationUnsubscribe();
+            customerUnsubscribe = null;
+            notificationUnsubscribe = null;
+            sessionStorage.removeItem('dms-customer-id');
+            currentUser = null;
+            cart = [];
+            appliedPromo = null;
+            showPage('auth-page');
+        };
+        
+        const fetchProducts = async () => {
+            productGridContainer.innerHTML = '<p>Loading products...</p>';
+            try {
+                const stockCol = collection(db, 'stock');
+                const q = query(stockCol, where('quantity', '>', 0));
+                
+                const [stockSnapshot, shopsSnapshot] = await Promise.all([
+                    getDocs(q),
+                    getDocs(collection(db, 'shops'))
+                ]);
+
+                shopsMap.clear();
+                shopsSnapshot.forEach(doc => shopsMap.set(doc.id, doc.data()));
+
+                products = stockSnapshot.docs.map(doc => {
+                    const data = doc.data();
+                    const shopInfo = shopsMap.get(data.shopId) || {};
+                    return { id: doc.id, ...data, shopName: shopInfo.shopName || 'Unknown Shop', shopAddress: shopInfo.address || 'N/A' };
+                });
+
+                renderProducts(products);
+            } catch (error) {
+                console.error("Error fetching products:", error);
+                productGridContainer.innerHTML = '<p class="empty-state">Could not load products. Please try again later.</p>';
+            }
+        };
+
+        const renderProducts = (productsToRender) => {
+            productGridContainer.innerHTML = '';
+            if (!productsToRender || productsToRender.length === 0) {
+                productGridContainer.innerHTML = '<div class="empty-state"><p>No products found.</p></div>';
+                return;
+            }
+
+            const grid = document.createElement('div');
+            grid.className = 'product-grid';
+
+            productsToRender.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                const finalPrice = product.price - (product.discount || 0);
+
+                card.innerHTML = `
+                    ${(product.discount > 0) ? `<div class="discount-badge">SAVE ₹${product.discount.toFixed(2)}</div>` : ''}
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        ${ (product.rackNo || product.rowNo) ? `
+                        <div class="product-location">
+                            📍 Find at: Rack ${product.rackNo || 'N/A'}, Row ${product.rowNo || 'N/A'}
+                        </div>` : ''}
+                        <p class="product-description">${product.description || 'No description available.'}</p>
+                        <div class="product-footer">
+                            <div class="price-container">
+                                ${(product.discount > 0) ? `<span class="original-price">₹${product.price.toFixed(2)}</span>` : ''}
+                                <span class="product-price">₹${finalPrice.toFixed(2)}</span>
+                            </div>
+                            <button class="btn-add-to-cart" data-product-id="${product.id}">Add to Cart</button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            productGridContainer.appendChild(grid);
+        };
+        
+        const updateCartUI = () => {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            if (totalItems > 0) {
+                cartBadgeEl.textContent = totalItems;
+                cartBadgeEl.style.display = 'flex';
+            } else {
+                cartBadgeEl.style.display = 'none';
+            }
+            renderCartModal();
+        };
+
+        const renderCartModal = () => {
+            const itemsContainer = document.getElementById('cart-items-container');
+            const summaryContainer = document.getElementById('cart-summary-container');
+            itemsContainer.innerHTML = '';
+            
+            if (cart.length === 0) {
+                itemsContainer.innerHTML = '<p style="text-align: center; padding: 2rem;">Your cart is empty.</p>';
+                summaryContainer.style.display = 'none';
+                return;
+            }
+
+            let subtotal = 0;
+            cart.forEach(item => {
+                const itemEl = document.createElement('div');
+                itemEl.className = 'cart-item';
+                itemEl.innerHTML = `
+                    <div style="flex-grow: 1;">
+                        <p style="font-weight: 600;">${item.name}</p>
+                        <p style="font-size: 0.8rem; color: var(--text-light);">₹${item.finalPrice.toFixed(2)}</p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <button data-product-id="${item.id}" data-action="decrease" class="btn btn-secondary" style="padding: 0.2rem 0.5rem; line-height: 1;">-</button>
+                        <span>${item.quantity}</span>
+                        <button data-product-id="${item.id}" data-action="increase" class="btn btn-secondary" style="padding: 0.2rem 0.5rem; line-height: 1;">+</button>
+                        <button data-product-id="${item.id}" data-action="remove" title="Remove item" class="btn" style="color: var(--danger-color); font-size: 1.2rem; background: transparent; border: none; padding: 0.2rem;">&times;</button>
+                    </div>
+                `;
+                itemsContainer.appendChild(itemEl);
+                subtotal += item.finalPrice * item.quantity;
+            });
+
+            let discount = 0;
+            if (appliedPromo) {
+                if (appliedPromo.type === 'fixed') {
+                    discount = appliedPromo.value;
+                } else if (appliedPromo.type === 'percentage') {
+                    discount = (subtotal * appliedPromo.value) / 100;
+                }
+            }
+            const total = subtotal - discount;
+
+            summaryContainer.style.display = 'block';
+            summaryContainer.innerHTML = `
+                <div class="summary-row"><span>Subtotal</span><span>₹${subtotal.toFixed(2)}</span></div>
+                ${discount > 0 ? `<div class="summary-row" style="color: var(--primary-color);"><span>Discount</span><span>- ₹${discount.toFixed(2)}</span></div>` : ''}
+                <div class="summary-row total"><span>Grand Total</span><span>₹${total.toFixed(2)}</span></div>
+                <button id="checkout-button" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Proceed to Checkout</button>
+            `;
+        };
+
+        const addToCart = (productId) => {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const cartItem = cart.find(item => item.id === productId);
+            if (cartItem) {
+                if (cartItem.quantity < product.quantity) {
+                    cartItem.quantity++;
+                } else {
+                    alert('Cannot add more than available stock.');
+                }
+            } else {
+                if (product.quantity > 0) {
+                    cart.push({ ...product, quantity: 1, finalPrice: product.price - (product.discount || 0) });
+                } else {
+                    alert('This item is out of stock.');
+                }
+            }
+            updateCartUI();
+        };
+
+        const updateQuantity = (productId, action) => {
+            const cartItemIndex = cart.findIndex(item => item.id === productId);
+            if (cartItemIndex === -1) return;
+            const cartItem = cart[cartItemIndex];
+            const product = products.find(p => p.id === productId);
+
+            if (action === 'increase') {
+                if (cartItem.quantity < product.quantity) {
+                    cartItem.quantity++;
+                } else {
+                    alert('Cannot add more than available stock.');
+                }
+            } else if (action === 'decrease') {
+                cartItem.quantity--;
+                if (cartItem.quantity === 0) {
+                    cart.splice(cartItemIndex, 1);
+                }
+            }
+            updateCartUI();
+            updateMobileCartUI();
+        };
+
+        const removeFromCart = (productId) => {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartUI();
+            updateMobileCartUI();
+        };
+
+        const openDeliveryModal = () => {
+            const subtotal = cart.reduce((sum, item) => sum + item.finalPrice * item.quantity, 0);
+            let discount = 0;
+            if (appliedPromo) {
+                if (appliedPromo.type === 'fixed') discount = appliedPromo.value;
+                else if (appliedPromo.type === 'percentage') discount = (subtotal * appliedPromo.value) / 100;
+            }
+            const total = subtotal - discount;
+
+            document.getElementById('final-summary').innerHTML = `
+                <div class="summary-row"><span>Subtotal</span><span>₹${subtotal.toFixed(2)}</span></div>
+                ${discount > 0 ? `<div class="summary-row" style="color: var(--primary-color);"><span>Discount</span><span>- ₹${discount.toFixed(2)}</span></div>` : ''}
+                <div class="summary-row total"><span>Grand Total</span><span>₹${total.toFixed(2)}</span></div>
+            `;
+            deliveryOptionsModal.classList.add('active');
+        };
+
+        // Mobile Cart UI Functions
+        const updateMobileCartUI = () => {
+            const itemsContainer = document.querySelector('.mobile-cart-items');
+            const totalElement = document.getElementById('mobile-cart-total');
+            
+            itemsContainer.innerHTML = '';
+            let total = 0;
+            
+            if (cart.length === 0) {
+                itemsContainer.innerHTML = '<p style="text-align: center; padding: 20px; color: #666;">Your cart is empty</p>';
+                totalElement.textContent = '0.00';
+                return;
+            }
+            
+            cart.forEach(item => {
+                const itemTotal = item.finalPrice * item.quantity;
+                total += itemTotal;
+                
+                const itemElement = document.createElement('div');
+                itemElement.className = 'mobile-cart-item';
+                itemElement.innerHTML = `
+                    <div class="item-info">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-price">₹${item.finalPrice.toFixed(2)}</div>
+                    </div>
+                    <div class="item-quantity">
+                        <button class="quantity-btn decrease" data-id="${item.id}">-</button>
+                        <span>${item.quantity}</span>
+                        <button class="quantity-btn increase" data-id="${item.id}">+</button>
+                    </div>
+                `;
+                itemsContainer.appendChild(itemElement);
+            });
+            
+            totalElement.textContent = total.toFixed(2);
+        };
+
+        const checkout = async () => {
+            if (cart.length === 0) return alert('Your cart is empty.');
+            
+            const deliveryOption = document.querySelector('input[name="delivery-option"]:checked').value;
+            const deliveryAddress = document.getElementById('delivery-address').value.trim();
+
+            if (deliveryOption === 'delivery' && !deliveryAddress) {
+                return alert('Please enter a delivery address.');
+            }
+
+            const subtotal = cart.reduce((sum, item) => sum + item.finalPrice * item.quantity, 0);
+            let discount = 0;
+            if (appliedPromo) {
+                if (appliedPromo.type === 'fixed') discount = appliedPromo.value;
+                else if (appliedPromo.type === 'percentage') discount = (subtotal * appliedPromo.value) / 100;
+            }
+            const total = subtotal - discount;
+
+            if (currentUser.wallet < total) {
+                return alert("Insufficient wallet balance. Please top-up your wallet.");
+            }
+            
+            const checkoutBtn = document.getElementById('confirm-and-pay-btn');
+            checkoutBtn.disabled = true;
+            checkoutBtn.textContent = 'Processing...';
+            
+            const itemsByShop = cart.reduce((acc, item) => {
+                const shopId = item.shopId;
+                if (!acc[shopId]) {
+                    acc[shopId] = { items: [], total: 0, shopInfo: shopsMap.get(shopId) || {} };
+                }
+                acc[shopId].items.push({ id: item.id, name: item.name, price: item.finalPrice, quantity: item.quantity, shopId: item.shopId });
+                acc[shopId].total += item.finalPrice * item.quantity;
+                return acc;
+            }, {});
+
+            try {
+                await runTransaction(db, async (transaction) => {
+                    const customerRef = doc(db, 'customers', currentUser.id);
+                    const customerDoc = await transaction.get(customerRef);
+                    if (!customerDoc.exists()) throw new Error("Customer not found!");
+                    
+                    const currentWallet = customerDoc.data().wallet;
+                    if (currentWallet < total) throw new Error("Insufficient funds. Your balance might have changed.");
+
+                    const stockDocs = new Map();
+                    for (const item of cart) {
+                        const stockRef = doc(db, 'stock', item.id);
+                        const stockDoc = await transaction.get(stockRef);
+                        if (!stockDoc.exists() || stockDoc.data().quantity < item.quantity) {
+                             throw new Error(`Item "${item.name}" is out of stock or has insufficient quantity.`);
+                        }
+                        stockDocs.set(item.id, stockDoc);
+                    }
+
+                    transaction.update(customerRef, { wallet: currentWallet - total });
+                    
+                    const discountProportion = subtotal > 0 ? discount / subtotal : 0;
+
+                    for (const shopId in itemsByShop) {
+                        const shopOrder = itemsByShop[shopId];
+                        const orderRef = doc(collection(db, 'orders'));
+                        
+                        const shopDiscount = shopOrder.total * discountProportion;
+                        const shopTotal = shopOrder.total - shopDiscount;
+
+                        let orderData = {
+                            customerId: currentUser.id, 
+                            customerName: currentUser.name, 
+                            items: shopOrder.items, 
+                            subtotal: shopOrder.total,
+                            total: shopTotal,
+                            shopId: shopId, 
+                            status: 'Paid', 
+                            createdAt: serverTimestamp() 
+                        };
+                        
+                        if(appliedPromo) {
+                            orderData.promoCodeApplied = appliedPromo.code;
+                            orderData.promoDiscount = shopDiscount;
+                        }
+
+                        if (deliveryOption === 'delivery') {
+                            orderData.deliveryInfo = {
+                                status: 'pending',
+                                customerAddress: deliveryAddress,
+                                shopAddress: shopOrder.shopInfo.address || 'N/A',
+                                shopName: shopOrder.shopInfo.shopName || 'Unknown Shop',
+                                deliveryBoyId: null,
+                                deliveryBoyName: null,
+                            };
+                        }
+                        
+                        transaction.set(orderRef, orderData);
+                        
+                        for (const item of shopOrder.items) {
+                            const stockRef = doc(db, 'stock', item.id);
+                            const stockDoc = stockDocs.get(item.id);
+                            const newQuantity = stockDoc.data().quantity - item.quantity;
+                            transaction.update(stockRef, { quantity: newQuantity });
+                        }
+                    }
+                });
+                
+                // Generate and show receipt
+                const orderId = Date.now().toString();
+                const receiptData = {
+                    id: orderId,
+                    customerName: currentUser.name,
+                    items: cart.map(item => ({
+                        name: item.name,
+                        quantity: item.quantity,
+                        price: item.finalPrice
+                    })),
+                    total: total
+                };
+                
+                generateReceipt(receiptData);
+                billReceiptModal.classList.add('active');
+                
+                alert(`Checkout successful! Your order has been placed. Receipt generated.`);
+                cart = [];
+                appliedPromo = null;
+                document.getElementById('promo-code-input').value = '';
+                updateCartUI();
+                cartModal.classList.remove('active');
+                deliveryOptionsModal.classList.remove('active');
+
+            } catch (error) {
+                console.error("Checkout transaction failed: ", error);
+                alert("Checkout failed: " + error.message);
+            } finally {
+                checkoutBtn.disabled = false;
+                checkoutBtn.textContent = 'Confirm & Pay';
+            }
+        };
+
+        // Receipt generation functions
+        const generateReceipt = (orderData) => {
+            const receipt = document.getElementById('receipt-content');
+            const now = new Date();
+            
+            let receiptHTML = `
+                <div class="receipt-header">
+                    <h3>DUMP MONEY</h3>
+                    <p>Order Receipt</p>
+                </div>
+                <p><strong>Order ID:</strong> ${orderData.id}</p>
+                <p><strong>Date:</strong> ${now.toLocaleDateString()} ${now.toLocaleTimeString()}</p>
+                <p><strong>Customer:</strong> ${orderData.customerName}</p>
+                <div style="margin: 10px 0; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 5px 0;">
+                <div class="receipt-item">
+                    <span>Item</span>
+                    <span>Qty</span>
+                    <span>Price</span>
+                </div>
                 </div>
             `;
-            orderDisplay.innerHTML = orderHTML;
-        }
-
-        async function checkStatusAndPay() {
-            const mobile = document.getElementById('mobile-number-input').value;
-            if (mobile.length !== 10) return;
             
-            const ordersContainer = document.getElementById('orders-container');
-            const orderDisplay = document.getElementById('order-display');
-            ordersContainer.classList.remove('hidden');
-            orderDisplay.innerHTML = '<p class="text-center text-gray-300">Searching for orders...</p>';
+            orderData.items.forEach(item => {
+                receiptHTML += `
+                    <div class="receipt-item">
+                        <span>${item.name}</span>
+                        <span>${item.quantity}</span>
+                        <span>₹${(item.price * item.quantity).toFixed(2)}</span>
+                    </div>
+                `;
+            });
+            
+            receiptHTML += `
+                <div class="receipt-total">
+                    <div class="receipt-item">
+                        <span>Total:</span>
+                        <span>₹${orderData.total.toFixed(2)}</span>
+                    </div>
+                </div>
+                <div class="receipt-footer">
+                    <p>Thank you for shopping with us!</p>
+                    <p>Visit again soon</p>
+                </div>
+            `;
+            
+            receipt.innerHTML = receiptHTML;
+        };
+        
+        const downloadReceipt = () => {
+            const receiptContent = document.getElementById('receipt-content').innerHTML;
+            const blob = new Blob([receiptContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `receipt-${Date.now()}.html`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        };
 
-            const snapshot = await db.ref('orders').orderByChild('customerMobile').equalTo(mobile).once('value');
-            if (!snapshot.exists()) {
-                customerOrdersCache = [];
-                currentOrderIndex = 0;
-                renderPaginatedOrder();
+        // --- TOP-UP LOGIC ---
+        const openTopupModal = async () => {
+            document.getElementById('topup-form').reset();
+            document.getElementById('screenshot-preview').style.display = 'none';
+            topupModal.classList.add('active');
+            const loadingEl = document.getElementById('payment-details-loading');
+            const contentEl = document.getElementById('payment-details-content');
+            loadingEl.style.display = 'block';
+            contentEl.style.display = 'none';
+
+            try {
+                const settingsDoc = await getDoc(doc(db, 'settings', 'paymentDetails'));
+                if (settingsDoc.exists()) {
+                    const { upiId, qrCodeUrl } = settingsDoc.data();
+                    document.getElementById('upi-id-text').textContent = `UPI ID: ${upiId}`;
+                    document.getElementById('qr-code-img').src = qrCodeUrl;
+                    document.getElementById('download-qr-btn').href = qrCodeUrl;
+                    loadingEl.style.display = 'none';
+                    contentEl.style.display = 'block';
+                } else {
+                    loadingEl.textContent = "Top-up service is currently unavailable.";
+                }
+            } catch (error) {
+                 loadingEl.textContent = "Could not load payment details. Please try again.";
+            }
+        };
+        const closeTopupModal = () => topupModal.classList.remove('active');
+        
+        document.getElementById('topup-wallet-btn').addEventListener('click', openTopupModal);
+        document.getElementById('topup-wallet-btn-history').addEventListener('click', openTopupModal);
+        document.getElementById('close-topup-modal').addEventListener('click', closeTopupModal);
+        document.getElementById('cancel-topup-btn').addEventListener('click', closeTopupModal);
+
+        document.getElementById('payment-screenshot').addEventListener('change', function(event) {
+            const preview = document.getElementById('screenshot-preview');
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            } else {
+                preview.style.display = 'none';
+            }
+        });
+
+        const fileToBase64 = (file) => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+
+        document.getElementById('topup-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const amount = parseFloat(e.target.elements.amount.value);
+            const screenshotFile = e.target.elements.screenshot.files[0];
+            const errorEl = document.getElementById('topup-error');
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+
+            if (!screenshotFile) {
+                errorEl.textContent = "Please upload a screenshot.";
+                errorEl.style.display = 'block';
                 return;
             }
             
-            const ordersData = snapshot.val();
-            customerOrdersCache = Object.keys(ordersData).map(key => ({ ...ordersData[key], firebaseKey: key }));
-             // Sort orders to show most recent first
-            customerOrdersCache.sort((a,b) => (b.bookingDate && a.bookingDate) ? new Date(b.bookingDate) - new Date(a.bookingDate) : 0);
-            currentOrderIndex = 0;
-            renderPaginatedOrder();
-        }
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            errorEl.style.display = 'none';
 
-        // --- Event Listeners & Init ---
-        document.addEventListener('DOMContentLoaded', () => {
-            firebase.initializeApp(firebaseConfig);
-            db = firebase.database();
-            kioskId = 'kiosk_01'; // Can be made dynamic
-            kioskLiveRef = db.ref(`kiosk/liveFeeds/${kioskId}`);
-            
-            db.ref('kiosk/paymentSettings').on('value', snapshot => {
-                paymentSettings = snapshot.val() || {};
-            });
-
-            // Set initial idle state
-            kioskLiveRef.update({ status: 'active_idle' });
-
-            // Listen for admin actions
-            kioskLiveRef.child('adminAction').on('value', snapshot => {
-                if (!snapshot.exists()) return;
-                const action = snapshot.val();
+            try {
+                const screenshotBase64 = await fileToBase64(screenshotFile);
+                await addDoc(collection(db, 'topupRequests'), {
+                    customerId: currentUser.id,
+                    customerName: currentUser.name,
+                    amount: amount,
+                    screenshotBase64: screenshotBase64,
+                    status: 'pending',
+                    createdAt: serverTimestamp()
+                });
                 
-                // Use timestamp to avoid re-triggering on old actions
-                if (action && (Date.now() - action.timestamp < 5000)) {
-                    if (action.type === 'payment_approved') {
-                        speak("Your payment has been successfully verified. Thank you!", () => endCall());
-                    } else if (action.type === 'payment_rejected') {
-                        speak("There was an issue verifying your payment. Please try again or ask for help.", () => endCall());
-                    } else if (action.type === 'call_ended') {
-                        endCall();
+                alert("Your top-up request has been submitted. The balance will be updated after verification.");
+                closeTopupModal();
+
+            } catch (error) {
+                console.error("Top-up request failed: ", error);
+                errorEl.textContent = "Failed to submit request. Please try again.";
+                errorEl.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Request';
+            }
+        });
+        
+        // --- PROMO CODE LOGIC ---
+        document.getElementById('apply-promo-btn').addEventListener('click', async () => {
+            const btn = document.getElementById('apply-promo-btn');
+            const input = document.getElementById('promo-code-input');
+            const feedbackEl = document.getElementById('promo-feedback');
+            const code = input.value.trim().toUpperCase();
+
+            if (appliedPromo && appliedPromo.code === code) {
+                appliedPromo = null;
+                feedbackEl.textContent = 'Promo code removed.';
+                feedbackEl.style.color = 'var(--text-light)';
+                btn.textContent = 'Apply';
+                input.value = '';
+                updateCartUI();
+                return;
+            }
+
+            if (!code) return;
+            const subtotal = cart.reduce((sum, item) => sum + item.finalPrice * item.quantity, 0);
+
+            try {
+                const q = query(collection(db, 'promoCodes'), where('code', '==', code));
+                const snap = await getDocs(q);
+                if (snap.empty) {
+                    throw new Error('Invalid promo code.');
+                }
+                
+                const promo = { id: snap.docs[0].id, ...snap.docs[0].data() };
+
+                if (promo.status !== 'active') throw new Error('This promo code is not active.');
+                if (promo.expires && new Date() > promo.expires.toDate()) throw new Error('This promo code has expired.');
+                if (promo.minOrder && subtotal < promo.minOrder) throw new Error(`You need to spend at least ₹${promo.minOrder} to use this code.`);
+
+                appliedPromo = promo;
+                feedbackEl.textContent = 'Promo code applied successfully!';
+                feedbackEl.style.color = 'var(--primary-color)';
+                btn.textContent = 'Remove';
+
+            } catch (error) {
+                appliedPromo = null;
+                feedbackEl.textContent = error.message;
+                feedbackEl.style.color = 'var(--danger-color)';
+                btn.textContent = 'Apply';
+            }
+            updateCartUI();
+        });
+
+        // --- NOTIFICATION LOGIC ---
+        const renderNotifications = (notifications) => {
+            const listEl = document.getElementById('notification-list');
+            const badgeEl = document.getElementById('notification-badge');
+            listEl.innerHTML = '';
+            
+            const unreadCount = notifications.filter(n => !n.read).length;
+            if (unreadCount > 0) {
+                badgeEl.textContent = unreadCount;
+                badgeEl.style.display = 'flex';
+            } else {
+                badgeEl.style.display = 'none';
+            }
+
+            if (notifications.length === 0) {
+                listEl.innerHTML = '<div class="notification-item"><p>No notifications yet.</p></div>';
+                return;
+            }
+            
+            notifications.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+
+            notifications.forEach(n => {
+                const item = document.createElement('div');
+                item.className = 'notification-item';
+                if (!n.read) item.classList.add('unread');
+                item.innerHTML = `<p>${n.message}</p>`;
+                listEl.appendChild(item);
+            });
+        };
+
+        document.getElementById('notification-btn').addEventListener('click', async () => {
+            const dropdown = document.getElementById('notification-dropdown');
+            dropdown.classList.toggle('active');
+
+            if (dropdown.classList.contains('active')) {
+                const q = query(collection(db, 'notifications'), where('customerId', '==', currentUser.id), where('read', '==', false));
+                const snapshot = await getDocs(q);
+                snapshot.forEach(docSnap => {
+                    updateDoc(doc(db, 'notifications', docSnap.id), { read: true });
+                });
+            }
+        });
+
+        document.getElementById('notification-btn-history').addEventListener('click', async () => {
+            const dropdown = document.getElementById('notification-dropdown-history');
+            dropdown.classList.toggle('active');
+
+            if (dropdown.classList.contains('active')) {
+                const q = query(collection(db, 'notifications'), where('customerId', '==', currentUser.id), where('read', '==', false));
+                const snapshot = await getDocs(q);
+                snapshot.forEach(docSnap => {
+                    updateDoc(doc(db, 'notifications', docSnap.id), { read: true });
+                });
+            }
+        });
+
+        // Event Listeners for new elements
+        document.getElementById('scan-and-go-btn').addEventListener('click', startScanner);
+        document.getElementById('scan-and-go-btn-history').addEventListener('click', startScanner);
+        document.getElementById('close-scan-modal').addEventListener('click', () => {
+            if (html5QrCode && html5QrCode.isScanning) {
+                html5QrCode.stop().catch(err => {});
+            }
+            scanModal.classList.remove('active');
+        });
+        document.getElementById('find-item-manual-btn').addEventListener('click', () => {
+            const term = document.getElementById('manual-item-id').value.trim().toLowerCase();
+            if (term) {
+                const product = products.find(p => p.id === term || (p.shortCode && p.shortCode.toLowerCase() === term));
+                if (product) {
+                    if (html5QrCode && html5QrCode.isScanning) {
+                        html5QrCode.stop().then(() => {
+                            scanModal.classList.remove('active');
+                            handleFoundProduct(product.id);
+                        }).catch(err => {});
+                    } else {
+                        scanModal.classList.remove('active');
+                        handleFoundProduct(product.id);
                     }
-                    kioskLiveRef.child('adminAction').remove(); // Clear action
+                    document.getElementById('manual-item-id').value = '';
+                } else {
+                    alert("Product not found with that ID or Short Code.");
+                }
+            } else {
+                alert("Please enter an Item ID or Short Code.");
+            }
+        });
+        
+        document.getElementById('item-details-modal').addEventListener('click', (e) => {
+            const targetId = e.target.id;
+            if (targetId === 'add-scanned-to-cart-btn') {
+                addToCart(currentScannedProductId);
+                e.target.textContent = "Added ✓";
+                setTimeout(() => { itemDetailsModal.classList.remove('active'); }, 500);
+            } else if (targetId === 'scan-another-btn') {
+                itemDetailsModal.classList.remove('active');
+                startScanner();
+            } else if (targetId === 'close-scanned-item-details-btn' || targetId === 'close-item-details-modal' || e.target === itemDetailsModal) {
+                itemDetailsModal.classList.remove('active');
+            }
+        });
+        
+        document.getElementById('close-wallet-payment-modal').addEventListener('click', () => walletPaymentModal.classList.remove('active'));
+
+        // Delivery Modal Listeners
+        document.getElementById('close-delivery-modal').addEventListener('click', () => deliveryOptionsModal.classList.remove('active'));
+        document.querySelectorAll('input[name="delivery-option"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                const addressContainer = document.getElementById('delivery-address-container');
+                if (e.target.value === 'delivery') {
+                    addressContainer.style.display = 'block';
+                    document.getElementById('delivery-address').required = true;
+                } else {
+                    addressContainer.style.display = 'none';
+                    document.getElementById('delivery-address').required = false;
                 }
             });
+        });
+        document.getElementById('confirm-and-pay-btn').addEventListener('click', checkout);
 
-            createKeyboard();
-
-            document.getElementById('idle-view').addEventListener('click', () => {
-                captureLoginPhoto(); // Capture photo on interaction start
-                switchView('menu');
+        // Mobile Cart Event Listeners
+        document.getElementById('open-cart-button').addEventListener('click', () => {
+            updateMobileCartUI();
+            mobileCartPopup.classList.add('active');
+            cartOverlay.classList.add('active');
+        });
+        
+        document.getElementById('open-cart-button-history').addEventListener('click', () => {
+            updateMobileCartUI();
+            mobileCartPopup.classList.add('active');
+            cartOverlay.classList.add('active');
+        });
+        
+        document.querySelector('.close-cart-btn').addEventListener('click', () => {
+            mobileCartPopup.classList.remove('active');
+            cartOverlay.classList.remove('active');
+        });
+        
+        cartOverlay.addEventListener('click', () => {
+            mobileCartPopup.classList.remove('active');
+            cartOverlay.classList.remove('active');
+        });
+        
+        document.querySelector('.mobile-cart-items').addEventListener('click', (e) => {
+            if (e.target.classList.contains('increase')) {
+                const id = e.target.dataset.id;
+                updateQuantity(id, 'increase');
+            } else if (e.target.classList.contains('decrease')) {
+                const id = e.target.dataset.id;
+                updateQuantity(id, 'decrease');
+            }
+        });
+        
+        document.getElementById('proceed-to-checkout').addEventListener('click', () => {
+            mobileCartPopup.classList.remove('active');
+            cartOverlay.classList.remove('active');
+            openDeliveryModal();
+        });
+        
+        // Receipt Modal Event Listeners
+        document.getElementById('close-receipt-modal').addEventListener('click', () => {
+            billReceiptModal.classList.remove('active');
+        });
+        
+        document.getElementById('download-receipt').addEventListener('click', downloadReceipt);
+        
+        // --- EXISTING EVENT LISTENERS ---
+        document.getElementById('search-input').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filtered = products.filter(p => {
+                const nameMatch = (p.name || '').toLowerCase().includes(searchTerm);
+                const shopMatch = (p.shopName || '').toLowerCase().includes(searchTerm);
+                const categoryMatch = p.category && typeof p.category === 'string' && p.category.toLowerCase().includes(searchTerm);
+                const shortCodeMatch = p.shortCode && p.shortCode.toLowerCase().includes(searchTerm);
+                return nameMatch || shopMatch || categoryMatch || shortCodeMatch;
             });
-            
-            document.querySelectorAll('.main-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const targetView = btn.dataset.target.replace('-view', '');
-                    if (targetView === 'help-request') {
-                        resetHelpRequestForm();
-                        switchView('helpRequest');
-                    } else if (targetView === 'new-order') {
-                        resetNewOrderForm();
-                        switchView('newOrder');
-                        speak("Welcome. In the description box, please mention the total number of items, and if you need new stitching or alterations. For payments or to check your order details, please go back and use the help option.");
-                    } else {
-                        switchView(targetView);
+            renderProducts(filtered);
+        });
+        
+        document.getElementById('search-input-history').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredOrders = orders.filter(order => 
+                order.id.toLowerCase().includes(searchTerm) ||
+                (order.shopName && order.shopName.toLowerCase().includes(searchTerm)) ||
+                order.items.some(item => item.name.toLowerCase().includes(searchTerm))
+            );
+            const filteredPayments = payments.filter(payment => 
+                payment.id.toLowerCase().includes(searchTerm) ||
+                payment.amount.toString().includes(searchTerm)
+            );
+            renderOrders(filteredOrders);
+            renderPayments(filteredPayments);
+        });
+        
+        productGridContainer.addEventListener('click', (e) => { if (e.target.matches('.btn-add-to-cart')) { addToCart(e.target.dataset.productId); } });
+        document.getElementById('open-cart-button').addEventListener('click', () => { renderCartModal(); cartModal.classList.add('active'); });
+        document.getElementById('open-cart-button-history').addEventListener('click', () => { renderCartModal(); cartModal.classList.add('active'); });
+        document.getElementById('close-cart-button').addEventListener('click', () => cartModal.classList.remove('active')); 
+        cartModal.addEventListener('click', (e) => { if (e.target === cartModal) cartModal.classList.remove('active'); });
+        document.getElementById('cart-items-container').addEventListener('click', (e) => {
+            const button = e.target.closest('button[data-action]');
+            if (button) {
+                const { productId, action } = button.dataset;
+                if (action === 'increase' || action === 'decrease') {
+                    updateQuantity(productId, action);
+                }
+                if (action === 'remove') {
+                    removeFromCart(productId);
+                }
+            }
+        });
+        document.getElementById('cart-summary-container').addEventListener('click', (e) => { if (e.target.id === 'checkout-button') openDeliveryModal(); });
+        document.getElementById('customer-logout-button').addEventListener('click', handleLogout);
+        document.getElementById('customer-logout-button-history').addEventListener('click', handleLogout);
+        
+        const authForm = document.getElementById('auth-form'); 
+        const authToggleLink = document.getElementById('auth-toggle-link'); 
+        let isLogin = true;
+
+        const toggleAuthMode = () => { 
+            isLogin = !isLogin; 
+            document.getElementById('auth-title').textContent = isLogin ? 'Welcome Back!' : 'Create Account'; 
+            document.getElementById('auth-subtitle').textContent = isLogin ? 'Sign in to find great deals.' : 'Sign up to start shopping.'; 
+            document.getElementById('auth-email-group').style.display = isLogin ? 'none' : 'block';
+            document.getElementById('auth-button').textContent = isLogin ? 'Sign In' : 'Create Account'; 
+            document.getElementById('auth-toggle-text').textContent = isLogin ? "Don't have an account? " : "Already have an account? "; 
+            authToggleLink.textContent = isLogin ? 'Sign Up' : 'Sign In'; 
+            document.getElementById('auth-error').style.display = 'none'; 
+            authForm.reset(); 
+        };
+        authToggleLink.addEventListener('click', toggleAuthMode);
+        
+        authForm.addEventListener('submit', async (e) => { 
+            e.preventDefault(); 
+            const btn = document.getElementById('auth-button');
+            const errorEl = document.getElementById('auth-error'); 
+            errorEl.style.display = 'none';
+            btn.disabled = true;
+
+            const { name, mobile, email } = e.target.elements; 
+            const nameValue = name.value.trim();
+            const mobileValue = mobile.value.trim();
+            const emailValue = email ? email.value.trim() : '';
+
+            try { 
+                if (isLogin) { 
+                    const q = query(collection(db, 'customers'), where('name', '==', nameValue), where('mobile', '==', mobileValue));
+                    const snapshot = await getDocs(q);
+                    if (snapshot.empty) {
+                        throw new Error("Invalid name or mobile number.");
                     }
+                    if (snapshot.size > 1) {
+                        // This case should ideally not happen if mobile is unique
+                        throw new Error("Multiple accounts found. Please contact support.");
+                    }
+                    const userDoc = snapshot.docs[0];
+                    sessionStorage.setItem('dms-customer-id', userDoc.id);
+                    setupUserSession({ id: userDoc.id, ...userDoc.data() });
+
+                } else { // Signup
+                    if (!nameValue || !mobileValue) {
+                        throw new Error("Name and Mobile Number are required.");
+                    }
+                    const q = query(collection(db, 'customers'), where('mobile', '==', mobileValue));
+                    const snapshot = await getDocs(q);
+                    if (!snapshot.empty) {
+                        throw new Error("A customer with this mobile number already exists.");
+                    }
+
+                    // Fetch welcome wallet amount from settings
+                    const settingsRef = doc(db, 'settings', 'appConfig');
+                    const settingsSnap = await getDoc(settingsRef);
+                    let welcomeWalletAmount = 0; // Safe default
+                    if (settingsSnap.exists() && settingsSnap.data().welcomeWallet) {
+                        welcomeWalletAmount = Number(settingsSnap.data().welcomeWallet);
+                    }
+
+                    await addDoc(collection(db, 'customers'), { 
+                        name: nameValue, 
+                        mobile: mobileValue,
+                        email: emailValue,
+                        wallet: welcomeWalletAmount, 
+                        createdAt: serverTimestamp() 
+                    });
+                    alert("Account created successfully! Please log in.");
+                    toggleAuthMode();
+                } 
+            } catch (err) { 
+                errorEl.textContent = err.message; 
+                errorEl.style.display = 'block'; 
+            } finally {
+                btn.disabled = false;
+            }
+        });
+
+        // History page functionality
+        const renderOrders = (ordersToRender) => {
+            ordersList.innerHTML = '';
+            if (!ordersToRender || ordersToRender.length === 0) {
+                ordersList.innerHTML = '<p style="text-align: center; padding: 2rem;">No orders found.</p>';
+                return;
+            }
+
+            ordersToRender.forEach(order => {
+                const orderEl = document.createElement('div');
+                orderEl.className = 'history-item';
+                orderEl.innerHTML = `
+                    <div class="history-item-header">
+                        <div class="history-item-title">Order from ${order.shopName}</div>
+                        <div class="history-item-date">${order.createdAt?.toDate().toLocaleString()}</div>
+                    </div>
+                    <div class="history-item-details">
+                        <div>Items: ${order.items.length}</div>
+                        <div style="font-weight: bold;">Total: ₹${order.total.toFixed(2)}</div>
+                    </div>
+                    <div class="history-item-details" style="margin-top: 0.25rem;">
+                        <div style="font-size: 0.75rem; color: #9ca3af;">ID: ${order.id.substring(0,10)}...</div>
+                        <div>Status: <span style="font-weight: 500;">${order.status}</span></div>
+                    </div>
+                `;
+                ordersList.appendChild(orderEl);
+            });
+        };
+
+        const renderPayments = (paymentsToRender) => {
+            paymentsList.innerHTML = '';
+            if (!paymentsToRender || paymentsToRender.length === 0) {
+                paymentsList.innerHTML = '<p style="text-align: center; padding: 2rem;">No payments found.</p>';
+                return;
+            }
+
+            paymentsToRender.forEach(payment => {
+                const paymentEl = document.createElement('div');
+                paymentEl.className = 'history-item';
+                 const statusColors = {
+                    'approved': 'var(--success-color, #22c55e)',
+                    'rejected': 'var(--danger-color, #ef4444)',
+                    'pending': 'var(--warning-color, #f59e0b)'
+                };
+                const statusColor = statusColors[payment.status] || 'var(--text-light)';
+                paymentEl.innerHTML = `
+                    <div class="history-item-header">
+                        <div class="history-item-title">Wallet Top-up Request</div>
+                        <div class="history-item-date">${payment.createdAt?.toDate().toLocaleString()}</div>
+                    </div>
+                    <div class="history-item-details">
+                        <div style="font-weight: bold;">Amount: ₹${payment.amount.toFixed(2)}</div>
+                        <div>Status: <span style="font-weight: 500; color: ${statusColor};">${payment.status}</span></div>
+                    </div>
+                    <div class="history-item-details" style="margin-top: 0.25rem;">
+                        <div style="font-size: 0.75rem; color: #9ca3af;">ID: ${payment.id.substring(0,10)}...</div>
+                    </div>
+                `;
+                paymentsList.appendChild(paymentEl);
+            });
+        };
+
+        const renderWalletLedger = (customerOrders, approvedPayments) => {
+            const ledgerListContainer = document.getElementById('wallet-ledger-list');
+            ledgerListContainer.innerHTML = ''; // Clear previous content
+
+            const transactions = [];
+
+            customerOrders.forEach(order => {
+                transactions.push({
+                    date: order.createdAt.toDate(),
+                    description: `Purchase from ${order.shopName}`,
+                    debit: order.total,
+                    credit: 0
                 });
             });
 
-            document.getElementById('back-to-menu-status').addEventListener('click', () => {
-                document.getElementById('mobile-number-input').value = '';
-                document.getElementById('orders-container').classList.add('hidden');
-                hideKeyboard();
-                switchView('menu');
-            });
-            document.getElementById('back-to-menu-order').addEventListener('click', () => {
-                hideKeyboard();
-                resetNewOrderForm();
-                switchView('menu');
-            });
-            document.getElementById('back-to-menu-help').addEventListener('click', () => {
-                hideKeyboard();
-                resetHelpRequestForm();
-                switchView('menu');
-            });
-            
-            document.getElementById('submit-order-request-btn').addEventListener('click', submitOrderRequest);
-            document.getElementById('request-video-call-btn').addEventListener('click', submitHelpRequest);
-            document.getElementById('end-call-btn').addEventListener('click', endCall);
-
-            document.getElementById('mobile-number-input').addEventListener('focus', (e) => showKeyboard(e.target));
-            document.getElementById('new-order-name').addEventListener('focus', (e) => showKeyboard(e.target));
-            document.getElementById('new-order-mobile').addEventListener('focus', (e) => showKeyboard(e.target));
-            document.getElementById('new-order-description').addEventListener('focus', (e) => showKeyboard(e.target));
-            document.getElementById('help-name').addEventListener('focus', (e) => showKeyboard(e.target));
-            document.getElementById('help-mobile').addEventListener('focus', (e) => showKeyboard(e.target));
-            
-            document.getElementById('virtual-keyboard').addEventListener('click', (e) => {
-                if (!e.target.matches('.keyboard-key')) return;
-                const key = e.target.dataset.key;
-                
-                if (key === 'Enter') {
-                    if (currentInput && currentInput.id === 'mobile-number-input') {
-                        checkStatusAndPay();
-                    }
-                    hideKeyboard();
-                    return; 
-                }
-
-                if (!key || !currentInput) return;
-                
-                if (key === 'Backspace') {
-                    currentInput.value = currentInput.value.slice(0, -1);
-                } else if (key === 'Space') {
-                    currentInput.value += ' ';
-                } else {
-                    if (currentInput.id === 'mobile-number-input' && currentInput.value.length >= 10) return;
-                    currentInput.value += key;
-                }
+            approvedPayments.forEach(payment => {
+                transactions.push({
+                    date: payment.createdAt.toDate(),
+                    description: 'Wallet Top-up',
+                    debit: 0,
+                    credit: payment.amount
+                });
             });
 
-            document.getElementById('status-view').addEventListener('click', (e) => {
-                if(e.target.classList.contains('verify-payment-btn')) {
-                    const orderInfo = {
-                        id: e.target.dataset.orderId,
-                        firebaseKey: e.target.dataset.firebaseKey,
-                        number: e.target.dataset.orderNumber
-                    };
-                    hideKeyboard();
-                    startCall('payment', { orderInfo: orderInfo });
-                } else if(e.target.id !== 'mobile-number-input' && isKeyboardVisible && !e.target.closest('#virtual-keyboard')) {
-                    hideKeyboard();
-                }
+            if (transactions.length === 0) {
+                ledgerListContainer.innerHTML = '<p style="text-align: center; padding: 2rem;">No wallet transactions found.</p>';
+                return;
+            }
+
+            // Sort oldest first to calculate running balance correctly
+            transactions.sort((a, b) => a.date - b.date);
+
+            const totalCredits = transactions.reduce((sum, t) => sum + t.credit, 0);
+            const totalDebits = transactions.reduce((sum, t) => sum + t.debit, 0);
+            const netChange = totalCredits - totalDebits;
+
+            let startingBalance = (currentUser.wallet || 0) - netChange;
+
+            let runningBalance = startingBalance;
+            transactions.forEach(t => {
+                runningBalance += t.credit - t.debit;
+                t.balance = runningBalance;
             });
 
-            document.getElementById('new-order-view').addEventListener('click', (e) => {
-                const isInput = e.target.matches('#new-order-name, #new-order-mobile, #new-order-description');
-                const isKeyboard = e.target.closest('#virtual-keyboard');
-                if (!isInput && !isKeyboard && isKeyboardVisible) {
-                    hideKeyboard();
-                }
-            });
+            // Reverse for display (newest first)
+            const finalTransactions = transactions.reverse();
 
-            document.getElementById('help-request-view').addEventListener('click', (e) => {
-                const isInput = e.target.matches('#help-name, #help-mobile');
-                const isKeyboard = e.target.closest('#virtual-keyboard');
-                if (!isInput && !isKeyboard && isKeyboardVisible) {
-                    hideKeyboard();
-                }
-            });
+            const tableHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date & Time</th>
+                            <th>Description</th>
+                            <th style="text-align: right;">Debit (₹)</th>
+                            <th style="text-align: right;">Credit (₹)</th>
+                            <th style="text-align: right;">Balance (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${finalTransactions.map(t => `
+                            <tr>
+                                <td style="font-size: 0.875rem; color: var(--text-light);">${t.date.toLocaleString()}</td>
+                                <td>${t.description}</td>
+                                <td class="wallet-debit" style="text-align: right;">${t.debit > 0 ? `-${t.debit.toFixed(2)}` : '-'}</td>
+                                <td class="wallet-credit" style="text-align: right;">${t.credit > 0 ? `+${t.credit.toFixed(2)}` : '-'}</td>
+                                <td class="wallet-balance" style="text-align: right;">${t.balance.toFixed(2)}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            ledgerListContainer.innerHTML = tableHTML;
+        };
 
-            document.getElementById('prev-order-btn').addEventListener('click', () => {
-                if (currentOrderIndex > 0) {
-                    currentOrderIndex--;
-                    renderPaginatedOrder();
-                }
+        historyTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                historyTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                document.querySelectorAll('.history-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                const tabName = tab.dataset.tab;
+                document.getElementById(`${tabName}-content`).classList.add('active');
             });
-            document.getElementById('next-order-btn').addEventListener('click', () => {
-                if (currentOrderIndex < customerOrdersCache.length - 1) {
-                    currentOrderIndex++;
-                    renderPaginatedOrder();
-                }
-            });
-            
-            // Activate security listener
-            document.body.addEventListener('click', handleGlobalClick);
         });
 
-    </script>
-<script type="module" src="/index.tsx"></script>
+        const fetchHistoryData = async () => {
+            if (!currentUser) return;
+            
+            try {
+                const ordersQuery = query(collection(db, 'orders'), where('customerId', '==', currentUser.id));
+                const paymentsQuery = query(collection(db, 'topupRequests'), where('customerId', '==', currentUser.id));
+                
+                const [ordersSnapshot, paymentsSnapshot] = await Promise.all([
+                    getDocs(ordersQuery),
+                    getDocs(paymentsQuery)
+                ]);
+                
+                orders = ordersSnapshot.docs.map(doc => {
+                    const data = doc.data();
+                    const shopName = shopsMap.get(data.shopId)?.shopName || 'Unknown Shop';
+                    return { id: doc.id, ...data, shopName };
+                }).sort((a,b) => b.createdAt.seconds - a.createdAt.seconds);
+                
+                payments = paymentsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })).sort((a,b) => b.createdAt.seconds - a.createdAt.seconds);
 
-<script src="./script.js"></script></body></html>
+                renderOrders(orders);
+                renderPayments(payments);
+                renderWalletLedger(orders, payments.filter(p => p.status === 'approved'));
+
+            } catch (error) {
+                console.error("Error fetching history data:", error);
+                ordersList.innerHTML = '<p style="color:red; text-align:center; padding:1rem;">Could not load orders.</p>';
+                paymentsList.innerHTML = '<p style="color:red; text-align:center; padding:1rem;">Could not load payments.</p>';
+            }
+        };
+        
+        // --- NEW NAVIGATION LOGIC ---
+        document.getElementById('view-history-btn').addEventListener('click', () => {
+            fetchHistoryData();
+            showPage('history-page');
+        });
+        document.getElementById('view-deals-btn').addEventListener('click', () => {
+            showPage('customer-app-page');
+        });
+        document.getElementById('logo-link-main').addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('customer-app-page');
+        });
+        document.getElementById('logo-link-history').addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('customer-app-page');
+        });
+
+        const checkAuth = async () => {
+            const authTimeout = setTimeout(() => {
+                console.warn("Authentication check timed out. Redirecting to login.");
+                handleLogout();
+            }, 8000);
+
+            try {
+                const customerId = sessionStorage.getItem('dms-customer-id');
+                if (customerId) {
+                    const userDoc = await getDoc(doc(db, 'customers', customerId));
+                    if (userDoc.exists()) {
+                        setupUserSession({ id: userDoc.id, ...userDoc.data() });
+                    } else {
+                        handleLogout();
+                    }
+                } else {
+                    showPage('auth-page');
+                }
+            } catch (error) {
+                console.error("Auth check failed with an error:", error);
+                handleLogout();
+            } finally {
+                clearTimeout(authTimeout);
+            }
+        };
+
+        checkAuth();
+    </script>
+
+
+<script></script><script></script><script src="./script.js"></script></body></html>
